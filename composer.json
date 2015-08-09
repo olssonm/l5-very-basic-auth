@@ -1,0 +1,47 @@
+{
+    "name": "olssonm/l5-very-basic-auth",
+    "description": "Stateless HTTP basic auth without the need for a database. For Laravel 5",
+    "keywords": [
+        "olssonm",
+        "Laravel 5",
+        "authentication",
+        "http basic auth"
+    ],
+    "homepage": "https://github.com/olssonm/l5-very-basic-auth",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Marcus Olsson",
+            "email": "hello@marcusolsson.me",
+            "homepage": "https://marcusolsson.me"
+        }
+    ],
+    "require": {
+        "illuminate/support": "~5.1",
+        "php" : ">=5.3.0",
+        "mockery/mockery": "0.9.3"
+    },
+    "require-dev": {
+        "phpunit/phpunit" : "4.*",
+        "scrutinizer/ocular": "~1.1",
+        "orchestra/testbench": "~3.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Olssonm\\VeryBasicAuth\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Olssonm\\VeryBasicAuth\\Test\\": "tests"
+        }
+    },
+    "scripts": {
+        "test": "phpunit"
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.0-dev"
+        }
+    }
+}
