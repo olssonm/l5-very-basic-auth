@@ -46,7 +46,11 @@ Route::group(['middleware' => 'auth.very_basic'], function() {
 
 **Single**
 ``` php
-Route::get('/', ['as' = 'start', 'uses' => 'StartController@index', 'middleware' => 'auth.very_basic']);
+Route::get('/', [
+    'as' = 'start',
+    'uses' => 'StartController@index',
+    'middleware' => 'auth.very_basic'
+]);
 ```
 
 ## Testing
