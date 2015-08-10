@@ -2,7 +2,6 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
-use Mockery as m;
 
 use Olssonm\VeryBasicAuth\Http\Middleware\VeryBasicAuth;
 
