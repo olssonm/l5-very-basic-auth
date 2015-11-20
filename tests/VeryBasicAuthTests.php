@@ -33,6 +33,13 @@ class VeryBasicAuthTests extends \Orchestra\Testbench\TestCase {
 	}
 
 	/** @test */
+	public function test_config_file_is_installed()
+	{
+		// Look for config.php
+		$this->assertTrue(file_exists(__DIR__ . '/../src/config.php'));
+	}
+
+	/** @test */
 	public function test_very_basic_auth_authenticate_no_credentials()
 	{
 		$request = new Request();
@@ -138,5 +145,11 @@ class VeryBasicAuthTests extends \Orchestra\Testbench\TestCase {
 
 		$this->assertEquals(200, $result->getStatusCode());
         $this->assertEquals('{}', $result->getContent());
+	}
+
+	public static function tearDownAfterClass()
+	{
+		parent::tearDownAfterClass();
+		unlink(__DIR__ . '/../src/config.php');
 	}
 }

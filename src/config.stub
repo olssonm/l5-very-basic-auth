@@ -8,7 +8,7 @@
         'user'              => 'admin',
 
         // Password
-        'password'          => 'admin123',
+        'password'          => '%password%',
 
         // Environments where the middleware is active
         'envs'              => [
