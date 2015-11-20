@@ -10,9 +10,9 @@ This package allows you to add a HTTP Basic Auth filter on your routes, without 
 
 Perfect if you want to give for example clients access to your development site, and you have yet to set up your database and/or models. Or perhaps your site doesn't even use a database and you still wish to keep it protected.
 
-**Note**
+#### A thing to note
 
-While HTTP Basic Auth does give you a protection layer against unwanted visitors, it is still not strictly secure. If you are solely using this package for security, you should at least consider looking into Apache or Nginx rate-limiters to limit login attempts.
+While HTTP Basic Auth does give you a protection layer against unwanted visitors, it is still not strictly safe from brute-force attacks. If you are solely using this package for security, you should at least consider looking into Apache or Nginx rate-limiters to limit login attempts.
 
 ## Install
 
@@ -25,12 +25,16 @@ $ composer require olssonm/l5-very-basic-auth
 Pop in the provider in the providers array (`config/app.php`).
 
 ``` php
-'providers' = [
+'providers' => [
     Olssonm\VeryBasicAuth\VeryBasicAuthServiceProvider::class
 ]
 ```
 
 Run the command `$ php artisan vendor:publish` to publish the configuration – the file `very_basic_auth.php` will be copied to your `app/config`-folder. Here you can set various options, such as username and password.
+
+#### Note
+
+There is no default password. Upon installation a random password is set for added security. Always use `$ php artisan vendor:publish` to be able to set the credentials to access your secured routes.
 
 ## Usage
 
@@ -39,15 +43,15 @@ The middleware uses the `auth.very_basic`-filter to protect routes. You can eith
 **Group**
 ``` php
 Route::group(['middleware' => 'auth.very_basic'], function() {
-    Route::get('/', ['as' = 'start', 'uses' => 'StartController@index']);
-    Route::get('/page', ['as' = 'page', 'uses' => 'StartController@page']);
+    Route::get('/', ['as' => 'start', 'uses' => 'StartController@index']);
+    Route::get('/page', ['as' => 'page', 'uses' => 'StartController@page']);
 });
 ```
 
 **Single**
 ``` php
 Route::get('/', [
-    'as' = 'start',
+    'as' => 'start',
     'uses' => 'StartController@index',
     'middleware' => 'auth.very_basic'
 ]);

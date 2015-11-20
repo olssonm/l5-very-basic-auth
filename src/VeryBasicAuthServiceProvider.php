@@ -11,9 +11,12 @@ class VeryBasicAuthServiceProvider extends ServiceProvider
      */
     public function boot(\Illuminate\Routing\Router $router)
     {
+
+        $config = __DIR__ . '/config.php';
+
         // Publishing of configuration
         $this->publishes([
-            __DIR__ . '/config.php' => config_path('very_basic_auth.php'),
+            $config => config_path('very_basic_auth.php'),
         ]);
 
         // Register middleware
@@ -27,9 +30,32 @@ class VeryBasicAuthServiceProvider extends ServiceProvider
      */
     public function register()
     {
+
+        $config = __DIR__ . '/config.php';
+
+        // Check that config-file exists
+        if(!file_exists($config)) {
+            $this->createConfig();
+        }
+
         // If the user doesn't set their own config, load default
         $this->mergeConfigFrom(
-            __DIR__ . '/config.php', 'very_basic_auth'
+            $config, 'very_basic_auth'
         );
+    }
+
+    /**
+     * Crates a new config-file with a random password
+     * @return str bytes written
+     */
+    private function createConfig()
+    {
+
+        $config = __DIR__ . '/config.php';
+        $stub = __DIR__ . '/config.stub';
+
+        $data = file_get_contents($stub);
+        $data = str_replace('%password%', str_random(8), $data);
+        return file_put_contents($config, $data);
     }
 }
