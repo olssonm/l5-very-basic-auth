@@ -34,7 +34,7 @@ Run the command `$ php artisan vendor:publish` to publish the configuration – 
 
 #### Note
 
-There is no default password. Upon installation a random password is set for added security. Always use `$ php artisan vendor:publish` to be able to set the credentials to access your secured routes.
+There is no default password. Upon installation a random password is set for added security. Always use `$ php artisan vendor:publish --provider="Olssonm\VeryBasicAuth\VeryBasicAuthServiceProvider"` to be able to set the credentials to access your secured routes.
 
 ## Usage
 
