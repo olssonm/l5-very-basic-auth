@@ -14,6 +14,14 @@ Perfect if you want to give for example clients access to your development site,
 
 While HTTP Basic Auth does give you a protection layer against unwanted visitors, it is still not strictly safe from brute-force attacks. If you are solely using this package for security, you should at least consider looking into Apache or Nginx rate-limiters to limit login attempts.
 
+## Version Compatibility
+
+ Laravel  | l5-very-basic-auth
+:---------|:----------
+ 5.1.x    | 1.x
+ 5.2.x    | 1.x
+ 5.3.x    | 2.x
+
 ## Install
 
 Via Composer
