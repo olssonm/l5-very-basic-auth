@@ -16,11 +16,11 @@ While HTTP Basic Auth does give you a protection layer against unwanted visitors
 
 ## Version Compatibility
 
- Laravel  | l5-very-basic-auth
-:---------|:----------
- 5.1.x    | 1.x
- 5.2.x    | 1.x
- 5.3.x    | 2.x
+ Laravel        | l5-very-basic-auth
+:---------------|:----------
+ 4.2.x          | 1.x-l4
+ 5.1.x/5.2.x    | 1.x
+ 5.3.x          | 2.x
 
 ## Install
 
