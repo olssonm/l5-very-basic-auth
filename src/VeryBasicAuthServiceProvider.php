@@ -11,13 +11,15 @@ class VeryBasicAuthServiceProvider extends ServiceProvider
      */
     public function boot(\Illuminate\Routing\Router $router)
     {
-
         $config = __DIR__ . '/config.php';
 
         // Publishing of configuration
         $this->publishes([
             $config => config_path('very_basic_auth.php'),
         ]);
+
+        // Load default view/s
+        $this->loadViewsFrom(__DIR__ . '/resources/views', 'very_basic_auth');
 
         // Register middleware
         $router->middleware('auth.very_basic', 'Olssonm\VeryBasicAuth\Http\Middleware\VeryBasicAuth');
@@ -30,7 +32,6 @@ class VeryBasicAuthServiceProvider extends ServiceProvider
      */
     public function register()
     {
-
         $config = __DIR__ . '/config.php';
 
         // Check that config-file exists
@@ -50,7 +51,6 @@ class VeryBasicAuthServiceProvider extends ServiceProvider
      */
     private function createConfig()
     {
-
         $config = __DIR__ . '/config.php';
         $stub = __DIR__ . '/config.stub';
 
