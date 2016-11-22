@@ -10,6 +10,8 @@ This package allows you to add a HTTP Basic Auth filter on your routes, without 
 
 Perfect if you want to give for example clients access to your development site, and you have yet to set up your database and/or models. Or perhaps your site doesn't even use a database and you still wish to keep it protected.
 
+On failed authentication the user will get a "401 Unauthorized" response.
+
 #### A thing to note
 
 While HTTP Basic Auth does give you a protection layer against unwanted visitors, it is still not strictly safe from brute-force attacks. If you are solely using this package for security, you should at least consider looking into Apache or Nginx rate-limiters to limit login attempts.
@@ -18,11 +20,14 @@ While HTTP Basic Auth does give you a protection layer against unwanted visitors
 
  Laravel        | l5-very-basic-auth
 :---------------|:----------
- 4.2.x          | 1.x-l4
  5.1.x/5.2.x    | 1.x
  5.3.x          | 2.x
 
-## Install
+#### Using Laravel 4.x?
+
+[Take a look at this gist](https://gist.github.com/olssonm/ea5561d7ab20fb5c8ddbdac9b556b32b), it uses the old `Route::filter`-methods to achieve pretty much the same goal.
+
+## Installation
 
 Via Composer
 
@@ -38,11 +43,30 @@ Pop in the provider in the providers array (`config/app.php`).
 ]
 ```
 
-Run the command `$ php artisan vendor:publish` to publish the configuration – the file `very_basic_auth.php` will be copied to your `app/config`-folder. Here you can set various options, such as username and password.
+## Configuration
+
+Run the command `$ php artisan vendor:publish --provider="Olssonm\VeryBasicAuth\VeryBasicAuthServiceProvider"` to publish the configuration. The file `very_basic_auth.php` will be copied to your `app/config`-folder – here you can set various options such as username and password.
 
 #### Note
 
-There is no default password. Upon installation a random password is set for added security. Always use `$ php artisan vendor:publish --provider="Olssonm\VeryBasicAuth\VeryBasicAuthServiceProvider"` to be able to set the credentials to access your secured routes.
+**There is no default password**. Upon installation a random password is set for added security (we don't want everyone to use the same default password). Please publish the packages configuration to have the ability to set a custom password.
+
+#### Views and messages
+
+In the `very_basic_auth.php`-configuration you have the ability to set a custom view instead of a message.
+
+``` php
+// Message to display if the user "opts out"/clicks "cancel"
+'error_message'     => 'You have to supply your credentials to access this resource.',
+
+// If you prefer to use a view with your error message you can uncomment "error_view".
+// This will superseed your default response message
+// 'error_view'        => 'very_basic_auth::default'
+```
+
+If you uncomment out `error_view`, the middleware will try to find your specified view. You supply this value as usual (without the `.blade.php`-extention).
+
+*If you've upgraded to 2.1 from a previous version this key and value will be missing from your published configuration and you will have to add it yourself.*
 
 ## Usage
 
@@ -83,7 +107,7 @@ Laravel always runs in the "testing" environment while running tests. Make sure 
 
 The MIT License (MIT). Please see [License File](LICENSE.md) for more information.
 
-© 2015 [Marcus Olsson](https://marcusolsson.me).
+© 2016 [Marcus Olsson](https://marcusolsson.me).
 
 [ico-version]: https://img.shields.io/packagist/v/olssonm/l5-very-basic-auth.svg?style=flat-square
 [ico-license]: https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square
