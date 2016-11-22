@@ -147,6 +147,33 @@ class VeryBasicAuthTests extends \Orchestra\Testbench\TestCase {
         $this->assertEquals('{}', $result->getContent());
 	}
 
+	/** @test */
+	public function test_very_basic_auth_view_incorrect_credentials()
+	{
+		// Set the middleware to use a view
+		config()->set('very_basic_auth.error_view', 'very_basic_auth::default');
+
+		$request = new Request();
+        $response = new JsonResponse();
+
+		$user = str_random(20);
+		$pass = str_random(20);
+
+		$request->headers->add(['PHP_AUTH_USER' => $user]);
+		$request->headers->add(['PHP_AUTH_PW' => $pass]);
+
+        $next = function($request) use ($response) {
+            return $response;
+        };
+
+        $result = $this->middleware->handle($request, $next);
+
+		$this->assertEquals('Basic', $result->headers->get('www-authenticate'));
+		$this->assertEquals(401, $result->getStatusCode());
+        $this->assertContains('This is the default view for the l5-very-basic-auth-package', $result->getContent());
+	}
+
+	/** Teardown */
 	public static function tearDownAfterClass()
 	{
 		parent::tearDownAfterClass();
