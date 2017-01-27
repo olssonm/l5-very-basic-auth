@@ -20,7 +20,7 @@ class VeryBasicAuthTests extends \Orchestra\Testbench\TestCase {
     protected function getPackageProviders($app)
     {
         return [
-            'Olssonm\VeryBasicAuth\VeryBasicAuthServiceProvider'
+            \Olssonm\VeryBasicAuth\VeryBasicAuthServiceProvider::class
         ];
     }
 
