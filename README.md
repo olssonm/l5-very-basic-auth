@@ -48,7 +48,7 @@ Pop in the provider in the providers array (`config/app.php`).
 
 Run the command `$ php artisan vendor:publish --provider="Olssonm\VeryBasicAuth\VeryBasicAuthServiceProvider"` to publish the configuration. The file `very_basic_auth.php` will be copied to your `app/config`-folder – here you can set various options such as username and password.
 
-#### Note
+### Note
 
 **There is no default password**. Upon installation a random password is set for added security (we don't want everyone to use the same default password). Please publish the packages configuration to have the ability to set a custom password.
 
@@ -65,7 +65,7 @@ In the `very_basic_auth.php`-configuration you have the ability to set a custom 
 // 'error_view'        => 'very_basic_auth::default'
 ```
 
-If you uncomment out `error_view`, the middleware will try to find your specified view. You supply this value as usual (without the `.blade.php`-extention).
+If you uncomment `error_view`, the middleware will try to find your specified view. You supply this value as usual (without the `.blade.php`-extention).
 
 *If you've upgraded to 2.1 from a previous version this key and value will be missing from your published configuration and you will have to add it yourself.*
 
