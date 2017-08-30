@@ -1,12 +1,13 @@
 # Laravel 5 Very Basic Auth
 
 [![Latest Version on Packagist][ico-version]][link-packagist]
+[![Total downloads][ico-downloads]][link-packagist]
 [![Software License][ico-license]](LICENSE.md)
 [![Build Status][ico-travis]][link-travis]
 
 This package allows you to add a HTTP Basic Auth filter on your routes, without the need to actually use a database – which the Laravel default `auth.basic`-middleware relies on.
 
-![Screenshot](https://cloud.githubusercontent.com/assets/907114/9154094/a34c231a-3e80-11e5-81cc-993b844d6e2f.png)
+<img width="400" alt="Screenshot" src="https://user-images.githubusercontent.com/907114/29876493-3907afd8-8d9d-11e7-8068-f461855c493b.png">
 
 Perfect if you want to give for example clients access to your development site, and you have yet to set up your database and/or models. Or perhaps your site doesn't even use a database and you still wish to keep it protected.
 
@@ -23,6 +24,7 @@ While HTTP Basic Auth does give you a protection layer against unwanted visitors
  5.1.x/5.2.x    | 1.x
  5.3.x          | 2.x
  5.4.x          | 3.x
+ 5.5.x          | 4.x
 
 #### Using Laravel 4.x?
 
@@ -36,7 +38,25 @@ Via Composer
 $ composer require olssonm/l5-very-basic-auth
 ```
 
-Pop in the provider in the providers array (`config/app.php`).
+Since v4.* (for Laravel 5.5) this package uses Package Auto-Discovery for loading the service provider. Once installed you should see the message
+
+```
+Discovered Package: olssonm/l5-very-basic-auth
+```
+
+If you would like to manually add the provider, turn of Auto-Discovery for the package in your composer.json-file:
+
+``` json
+"extra": {
+    "laravel": {
+        "dont-discover": [
+            "olssonm/l5-very-basic-auth"
+        ]
+    }
+},
+```
+
+And then add the provider in the providers array (`config/app.php`).
 
 ``` php
 'providers' => [
@@ -46,7 +66,9 @@ Pop in the provider in the providers array (`config/app.php`).
 
 ## Configuration
 
-Run the command `$ php artisan vendor:publish --provider="Olssonm\VeryBasicAuth\VeryBasicAuthServiceProvider"` to publish the configuration. The file `very_basic_auth.php` will be copied to your `app/config`-folder – here you can set various options such as username and password.
+Run the command `$ php artisan vendor:publish` and select `Provider: Olssonm\VeryBasicAuth\VeryBasicAuthServiceProvider` to publish the configuration. You could also type `$ php artisan vendor:publish --provider="Olssonm\VeryBasicAuth\VeryBasicAuthServiceProvider"` to directly publish the files.
+
+The file `very_basic_auth.php` will then be copied to your `app/config`-folder – here you can set various options such as username and password.
 
 ### Note
 
@@ -113,5 +135,6 @@ The MIT License (MIT). Please see [License File](LICENSE.md) for more informatio
 [ico-version]: https://img.shields.io/packagist/v/olssonm/l5-very-basic-auth.svg?style=flat-square
 [ico-license]: https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square
 [ico-travis]: https://img.shields.io/travis/olssonm/l5-very-basic-auth/master.svg?style=flat-square
+[ico-downloads]: https://img.shields.io/packagist/dt/olssonm/l5-very-basic-auth.svg?style=flat-square
 [link-packagist]: https://packagist.org/packages/olssonm/l5-very-basic-auth
 [link-travis]: https://travis-ci.org/olssonm/l5-very-basic-auth
