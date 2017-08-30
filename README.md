@@ -7,7 +7,7 @@
 
 This package allows you to add a HTTP Basic Auth filter on your routes, without the need to actually use a database – which the Laravel default `auth.basic`-middleware relies on.
 
-![Screenshot](https://cloud.githubusercontent.com/assets/907114/9154094/a34c231a-3e80-11e5-81cc-993b844d6e2f.png)
+<img width="400" alt="Screenshot" src="https://user-images.githubusercontent.com/907114/29876493-3907afd8-8d9d-11e7-8068-f461855c493b.png">
 
 Perfect if you want to give for example clients access to your development site, and you have yet to set up your database and/or models. Or perhaps your site doesn't even use a database and you still wish to keep it protected.
 
