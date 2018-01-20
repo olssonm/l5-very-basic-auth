@@ -5,24 +5,24 @@
 [![Software License][ico-license]](LICENSE.md)
 [![Build Status][ico-travis]][link-travis]
 
-Documentation available in:
+利用可能なドキュメントは以下です:
 
 🇬🇧 [English](README.md)  
 🇯🇵 [日本語](README.jp.md)
 
-This package allows you to add a HTTP Basic Auth filter on your routes, without the need to actually use a database – which the Laravel default `auth.basic`-middleware relies on.
+Laravel 5 Very Basic AuthはLaravel標準の`auth.basic`とは違い、実際のデータベースの情報を使うことなくBasic認証を追加します。
 
 <img width="400" alt="Screenshot" src="https://user-images.githubusercontent.com/907114/29876493-3907afd8-8d9d-11e7-8068-f461855c493b.png">
 
-Perfect if you want to give for example clients access to your development site, and you have yet to set up your database and/or models. Or perhaps your site doesn't even use a database and you still wish to keep it protected.
+例えば、開発中のサイトにユーザーをアクセスさせたい時や、まだデータベースやモデルを用意していない時に使うと便利です。あなたのサイトがデータベースを利用していない場合でも、アクセスを制御することができます。
 
-On failed authentication the user will get a "401 Unauthorized" response.
+認証に失敗した場合には、"401 Unauthorized"のレスポンスを返します。
 
-#### A thing to note
+#### 注意点
 
-While HTTP Basic Auth does give you a protection layer against unwanted visitors, it is still not strictly safe from brute-force attacks. If you are solely using this package for security, you should at least consider looking into Apache or Nginx rate-limiters to limit login attempts.
+Basic認証は望まないユーザーからのアクセスを排除することができますが、ブルートフォース攻撃に対しては厳密には安全ではありません。もしこのパッケージをセキュリティのために単独で利用するのであれば、ログインの試行回数を制限するために、少なくともApacheかNginxのrate-limitersを確認するべきです。
 
-## Version Compatibility
+## 対応バージョン
 
  Laravel        | l5-very-basic-auth
 :---------------|:----------
@@ -31,25 +31,25 @@ While HTTP Basic Auth does give you a protection layer against unwanted visitors
  5.4.x          | 3.x
  5.5.x          | 4.x
 
-#### Using Laravel 4.x?
+#### Laravel4.xを使っている場合
 
-[Take a look at this gist](https://gist.github.com/olssonm/ea5561d7ab20fb5c8ddbdac9b556b32b), it uses the old `Route::filter`-methods to achieve pretty much the same goal.
+[こちらのgistを見てください](https://gist.github.com/olssonm/ea5561d7ab20fb5c8ddbdac9b556b32b), 古い`Route::filter`を使って、ほぼ同様の機能を利用できます。
 
-## Installation
+## インストール
 
-Via Composer
+Composer経由
 
 ``` bash
 $ composer require olssonm/l5-very-basic-auth
 ```
 
-Since v4.* (for Laravel 5.5) this package uses Package Auto-Discovery for loading the service provider. Once installed you should see the message
+このパッケージのv4.* (for Laravel 5.5)以降では、サービスプロバイダーからパッケージを読み込むのに、パッケージのオートディスカバリーを使用しています。パッケージをインストールすると、以下のメッセージが表示されるはずです。
 
 ```
 Discovered Package: olssonm/l5-very-basic-auth
 ```
 
-If you would like to manually add the provider, turn of Auto-Discovery for the package in your composer.json-file:
+もしも手動でプロバイダーに追加したい場合は、composer.jsonファイルでオートディスカバリーを切って、
 
 ``` json
 "extra": {
@@ -61,7 +61,7 @@ If you would like to manually add the provider, turn of Auto-Discovery for the p
 },
 ```
 
-And then add the provider in the providers array (`config/app.php`).
+(`config/app.php`)のprovidersにプロバイダーを追加してください。
 
 ``` php
 'providers' => [
@@ -69,38 +69,38 @@ And then add the provider in the providers array (`config/app.php`).
 ]
 ```
 
-## Configuration
+## 設定
 
-Run the command `$ php artisan vendor:publish` and select `Provider: Olssonm\VeryBasicAuth\VeryBasicAuthServiceProvider` to publish the configuration. You could also type `$ php artisan vendor:publish --provider="Olssonm\VeryBasicAuth\VeryBasicAuthServiceProvider"` to directly publish the files.
+`$ php artisan vendor:publish`のコマンドを実行し、`Provider: Olssonm\VeryBasicAuth\VeryBasicAuthServiceProvider`を選んで設定ファイルを公開してください。`$ php artisan vendor:publish --provider="Olssonm\VeryBasicAuth\VeryBasicAuthServiceProvider"`でも設定ファイルを公開することができます。
 
-The file `very_basic_auth.php` will then be copied to your `app/config`-folder – here you can set various options such as username and password.
+`very_basic_auth.php`のファイルがあなたの`app/config`ディレクトリにコピーされます。ここにusernameやpasswordなどの幾つかの設定を置くことができます。
 
-### Note
+### 注意
 
-**There is no default password**. Upon installation a random password is set for added security (we don't want everyone to use the same default password). Please publish the packages configuration to have the ability to set a custom password.
+**デフォルトのパスワードはありません。** セキュリティのために(誰もが同じパスワードになってしまわないように)、インストール時にランダムなパスワードが設定されます。個別のパスワードを設定するためにもパッケージ設定の公開をして下さい。
 
-#### Views and messages
+#### ビューとメッセージ
 
-In the `very_basic_auth.php`-configuration you have the ability to set a custom view instead of a message.
+`very_basic_auth.php`ファイルでは、メッセージの代わりにカスタマイズしたビューを設定することができます。
 
 ``` php
-// Message to display if the user "opts out"/clicks "cancel"
+// ユーザーがオプトアウトするか、キャンセルを推した場合に表示されるメッセージ
 'error_message'     => 'You have to supply your credentials to access this resource.',
 
-// If you prefer to use a view with your error message you can uncomment "error_view".
-// This will superseed your default response message
+// エラーメッセージの代わりにviewを使いたい場合は"error_view"のコメントアウトを外して下さい。
+// この場合、あなたのデフォルトのレスポンスメッセージよりもエラービューが優先されます。
 // 'error_view'        => 'very_basic_auth::default'
 ```
 
-If you uncomment `error_view`, the middleware will try to find your specified view. You supply this value as usual (without the `.blade.php`-extention).
+`error_view`のコメントアウトを外した場合、ミドルウェアは指定されたviewを探そうとします。このビュー名は通常と同じように`.blade.php`の拡張子無しで設定してください。
 
-*If you've upgraded to 2.1 from a previous version this key and value will be missing from your published configuration and you will have to add it yourself.*
+*以前のバージョンから2.1にアップグレードする場合、このkeyとvalueは公開された設定には存在しないので、自分自身で設定を追加する必要があります。*
 
-## Usage
+## 使い方
 
-The middleware uses the `auth.very_basic`-filter to protect routes. You can either use `Route::group()` to protect multiple routes, or chose just to protect them individually.
+このミドルウェアはルートを保護するのに`auth.very_basic`の短縮キーを使います。`Route::group()`に適用して複数のルートを保護することもできますし、個別に保護するルートを選ぶこともできます。
 
-**Group**
+**グループを使う場合**
 ``` php
 Route::group(['middleware' => 'auth.very_basic'], function() {
     Route::get('/', ['as' => 'start', 'uses' => 'StartController@index']);
@@ -108,7 +108,7 @@ Route::group(['middleware' => 'auth.very_basic'], function() {
 });
 ```
 
-**Single**
+**単独で使う場合**
 ``` php
 Route::get('/', [
     'as' => 'start',
@@ -117,23 +117,23 @@ Route::get('/', [
 ]);
 ```
 
-## Testing
+## テスト
 
 ``` bash
 $ composer test
 ```
 
-or
+または
 
 ``` bash
 $ phpunit
 ```
 
-Laravel always runs in the "testing" environment while running tests. Make sure that `testing` is set in the `envs`-array in `very_basic_auth.php`.
+テストを実行する際は、Laravelは常にenvironmentの値を"testing"にします。`testing`が`very_basic_auth.php`の`envs`配列内に存在することを確認して下さい。
 
-## License
+## ライセンス
 
-The MIT License (MIT). Please see [License File](LICENSE.md) for more information.
+MITライセンスです。 詳しくはこちらを見てください。[License File](LICENSE.md)
 
 © 2017 [Marcus Olsson](https://marcusolsson.me).
 
