@@ -5,6 +5,11 @@
 [![Software License][ico-license]](LICENSE.md)
 [![Build Status][ico-travis]][link-travis]
 
+Documentation available in:
+
+🇬🇧 [English](README.md)  
+🇯🇵 [日本語](README.jp.md)
+
 This package allows you to add a HTTP Basic Auth filter on your routes, without the need to actually use a database – which the Laravel default `auth.basic`-middleware relies on.
 
 <img width="400" alt="Screenshot" src="https://user-images.githubusercontent.com/907114/29876493-3907afd8-8d9d-11e7-8068-f461855c493b.png">
@@ -83,7 +88,7 @@ In the `very_basic_auth.php`-configuration you have the ability to set a custom 
 'error_message'     => 'You have to supply your credentials to access this resource.',
 
 // If you prefer to use a view with your error message you can uncomment "error_view".
-// This will superseed your default response message
+// This will supersede your default response message
 // 'error_view'        => 'very_basic_auth::default'
 ```
 
