@@ -131,11 +131,19 @@ $ phpunit
 
 Laravel always runs in the "testing" environment while running tests. Make sure that `testing` is set in the `envs`-array in `very_basic_auth.php`.
 
+## Thank you
+
+A big thank you to the people who has contributed to this package, among others:
+
+**[kazuhei](https://github.com/kazuhei)** – for providing the awesome Japanese translation  
+**[freekmurze](https://github.com/freekmurze)** – for additional information on package/vendor installations
+
+
 ## License
 
 The MIT License (MIT). Please see [License File](LICENSE.md) for more information.
 
-© 2017 [Marcus Olsson](https://marcusolsson.me).
+© 2018 [Marcus Olsson](https://marcusolsson.me).
 
 [ico-version]: https://img.shields.io/packagist/v/olssonm/l5-very-basic-auth.svg?style=flat-square
 [ico-license]: https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square
