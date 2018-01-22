@@ -14,26 +14,22 @@ class VeryBasicAuth
     public function handle($request, Closure $next)
     {
         // Load configuration
-        $veryBasicAuthUser = config('very_basic_auth.user');
-        $veryBasicAuthPass = config('very_basic_auth.password');
-        $veryBasicAuthEnvs = config('very_basic_auth.envs');
-        $veryBasicAuthMsg  = config('very_basic_auth.error_message');
-        $veryBasicAuthView = config('very_basic_auth.error_view');
+        $config = config('very_basic_auth');
 
         // Check if middleware is in use in current environment
-        if(in_array(app()->environment(), $veryBasicAuthEnvs)) {
-            if($request->getUser() != $veryBasicAuthUser || $request->getPassword() != $veryBasicAuthPass) {
+        if(in_array(app()->environment(), $config['envs'])) {
+            if($request->getUser() != $config['user'] || $request->getPassword() != $config['password']) {
 
                 $header = ['WWW-Authenticate' => 'Basic'];
 
                 // If view is available
-                if ($veryBasicAuthView) {
-                    return response()->view($veryBasicAuthView, [], 401)
+                if (isset($config['error_view'])) {
+                    return response()->view($config['error_view'], [], 401)
                         ->withHeaders($header);
                 }
 
                 // Else return default message
-                return response($veryBasicAuthMsg, 401, $header);
+                return response($config['error_message'], 401, $header);
             }
         }
 

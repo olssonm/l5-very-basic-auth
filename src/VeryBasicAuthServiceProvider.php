@@ -5,8 +5,16 @@ use Illuminate\Support\ServiceProvider;
 class VeryBasicAuthServiceProvider extends ServiceProvider
 {
 
+    /**
+     * Path to config-file
+     * @var string
+     */
     protected $config;
 
+    /**
+     * Path to stub
+     * @var string
+     */
     protected $stub;
 
     /**
@@ -28,7 +36,6 @@ class VeryBasicAuthServiceProvider extends ServiceProvider
 
     /**
      * Perform post-registration booting of services.
-     *
      * @return void
      */
     public function boot(\Illuminate\Routing\Router $router)
@@ -47,7 +54,6 @@ class VeryBasicAuthServiceProvider extends ServiceProvider
 
     /**
      * Register any package services.
-     *
      * @return void
      */
     public function register()
@@ -60,7 +66,7 @@ class VeryBasicAuthServiceProvider extends ServiceProvider
 
     /**
      * Crates a new config-file with a random password
-     * @return str bytes written
+     * @return string bytes written
      */
     private function createConfig()
     {
