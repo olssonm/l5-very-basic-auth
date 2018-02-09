@@ -6,6 +6,11 @@ before_script:
 
 script: composer test
 
+before_install:
+  - composer require "illuminate/support:${ILLUMINATE_VERSION}" --no-update
+
+install: composer update --prefer-source --no-interaction --dev
+
 matrix:
   include:
     - php: 5.6
@@ -19,4 +24,8 @@ matrix:
     - php: 7.1
       env: ILLUMINATE_VERSION=5.5.*
     - php: 7.1
+      env: ILLUMINATE_VERSION=5.6.*
+    - php: nightly
+      env: ILLUMINATE_VERSION=5.5.*
+    - php: nightly
       env: ILLUMINATE_VERSION=5.6.*
