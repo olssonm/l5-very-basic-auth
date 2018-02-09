@@ -1,10 +1,24 @@
 language: php
-php:
-  - 7.0
-  - nightly
 
-before_script:
+before_install:
   - travis_retry composer self-update
-  - travis_retry composer install --prefer-dist --no-interaction
+  - composer require "illuminate/support:${ILLUMINATE_VERSION}" --no-update
+
+install: composer update --prefer-source --no-interaction --dev
 
 script: composer test
+
+matrix:
+  include:
+    - php: 7.0
+      env: ILLUMINATE_VERSION=5.4.*
+    - php: 7.1
+      env: ILLUMINATE_VERSION=5.4.*
+    - php: 7.1
+      env: ILLUMINATE_VERSION=5.5.*
+    - php: 7.1
+      env: ILLUMINATE_VERSION=5.6.*
+    - php: nightly
+      env: ILLUMINATE_VERSION=5.4.*
+    - php: nightly
+      env: ILLUMINATE_VERSION=5.6.*
