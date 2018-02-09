@@ -13,12 +13,8 @@ install: composer update --prefer-source --no-interaction --dev
 
 matrix:
   include:
-    - php: 5.6
-      env: ILLUMINATE_VERSION=5.1.*
-    - php: 5.6
-      env: ILLUMINATE_VERSION=5.2.*
     - php: 7.0
-      env: ILLUMINATE_VERSION=5.3.*
+      env: ILLUMINATE_VERSION=5.4.*
     - php: 7.1
       env: ILLUMINATE_VERSION=5.4.*
     - php: 7.1
@@ -26,6 +22,6 @@ matrix:
     - php: 7.1
       env: ILLUMINATE_VERSION=5.6.*
     - php: nightly
-      env: ILLUMINATE_VERSION=5.5.*
+      env: ILLUMINATE_VERSION=5.4.*
     - php: nightly
       env: ILLUMINATE_VERSION=5.6.*
