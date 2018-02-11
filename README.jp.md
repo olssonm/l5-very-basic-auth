@@ -84,7 +84,7 @@ Discovered Package: olssonm/l5-very-basic-auth
 `very_basic_auth.php`ファイルでは、メッセージの代わりにカスタマイズしたビューを設定することができます。
 
 ``` php
-// ユーザーがオプトアウトするか、キャンセルを推した場合に表示されるメッセージ
+// ユーザーがオプトアウトするか、キャンセルを押した場合に表示されるメッセージ
 'error_message'     => 'You have to supply your credentials to access this resource.',
 
 // エラーメッセージの代わりにviewを使いたい場合は"error_view"のコメントアウトを外して下さい。
