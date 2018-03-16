@@ -76,11 +76,31 @@ Run the command `$ php artisan vendor:publish` and select `Provider: Olssonm\Ver
 
 The file `very_basic_auth.php` will then be copied to your `app/config`-folder – here you can set various options such as username and password.
 
-### Note
+#### Note
 
 **There is no default password**. Upon installation a random password is set for added security (we don't want everyone to use the same default password). Please publish the packages configuration to have the ability to set a custom password.
 
-#### Views and messages
+### Environments
+
+You may set the environments that the package should be applied for. You may simply use "`*`" to use in all environments (this is also the default).
+
+``` php
+'envs' => [
+    '*'
+],
+```
+
+Or
+
+``` php
+'envs' => [
+    'production',
+    'development',
+    'local'
+],
+```
+
+### Views and messages
 
 In the `very_basic_auth.php`-configuration you have the ability to set a custom view instead of a message.
 

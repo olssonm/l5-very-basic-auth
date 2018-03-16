@@ -173,6 +173,62 @@ class VeryBasicAuthTests extends \Orchestra\Testbench\TestCase {
         $this->assertContains('This is the default view for the l5-very-basic-auth-package', $result->getContent());
 	}
 
+	/* test */
+	public function test_very_basic_auth_env_local()
+	{
+		// Set the environment to only be "local"
+		config()->set('very_basic_auth.envs', ['local']);
+
+		$request = new Request();
+		$response = new JsonResponse();
+		$next = function($request) use ($response) {
+            return $response;
+        };
+
+        $result = $this->middleware->handle($request, $next);
+
+		// 200 becouse we should be locked out; tests occurs in the testing env.
+		$this->assertEquals(200, $result->getStatusCode());
+	}
+
+	/* test */
+	public function test_very_basic_auth_env_testing()
+	{
+		// Set the environment to only be "testing"
+		config()->set('very_basic_auth.envs', ['testing']);
+
+		$request = new Request();
+		$response = new JsonResponse();
+		$next = function($request) use ($response) {
+            return $response;
+        };
+
+        $result = $this->middleware->handle($request, $next);
+
+		$this->assertEquals('Basic', $result->headers->get('www-authenticate'));
+		$this->assertEquals(401, $result->getStatusCode());
+        $this->assertEquals(config('very_basic_auth.error_message'), $result->getContent());
+	}
+
+	/* test */
+	public function test_very_basic_auth_env_wildcard()
+	{
+		// Set the environment to use wildcard
+		config()->set('very_basic_auth.envs', ['*']);
+
+		$request = new Request();
+		$response = new JsonResponse();
+		$next = function($request) use ($response) {
+            return $response;
+        };
+
+        $result = $this->middleware->handle($request, $next);
+
+		$this->assertEquals('Basic', $result->headers->get('www-authenticate'));
+		$this->assertEquals(401, $result->getStatusCode());
+        $this->assertEquals(config('very_basic_auth.error_message'), $result->getContent());
+	}
+
 	/** Teardown */
 	public static function tearDownAfterClass()
 	{
