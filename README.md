@@ -30,7 +30,7 @@ Laravel                          | l5-very-basic-auth
 `5.3.*`                          | `2.*`
 `5.4.*`/`5.5.*`/`5.6.*`          | `5.*`
 
-*The odd versioning is due to breaking changes in the testing framework. Else, `3.x` is usable for Laravel 5.4 and `4.x` for Laravel 5.5.*
+*The odd versioning is due to breaking changes in the testing framework and PHP versions. Else, `3.x` is usable for Laravel 5.4 (PHP 5.6 and up) and `4.x` for Laravel 5.5.*
 
 #### Using Laravel 4.x?
 
