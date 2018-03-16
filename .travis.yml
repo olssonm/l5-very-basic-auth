@@ -4,7 +4,7 @@ before_install:
   - travis_retry composer self-update
   - composer require "illuminate/support:${ILLUMINATE_VERSION}" --no-update
 
-install: composer update --prefer-source --no-interaction --dev
+install: travis_wait composer update --prefer-source --no-interaction
 
 script: composer test
 
