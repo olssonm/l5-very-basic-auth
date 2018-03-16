@@ -17,7 +17,7 @@ class VeryBasicAuth
         $config = config('very_basic_auth');
 
         // Check if middleware is in use in current environment
-        if($config['envs'] == '*' || in_array(app()->environment(), $config['envs'])) {
+        if(in_array('*', $config['envs']) || in_array(app()->environment(), $config['envs'])) {
             if($request->getUser() != $config['user'] || $request->getPassword() != $config['password']) {
 
                 $header = ['WWW-Authenticate' => 'Basic'];

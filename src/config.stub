@@ -10,11 +10,9 @@
         // Password
         'password'          => '%password%',
 
-        // Environments where the middleware is active, use 'envs' => '*' to protect all envs
+        // Environments where the middleware is active. Use "*" to protect all envs
         'envs'              => [
-            'local',
-            'development',
-            'testing'
+            '*'
         ],
 
         // Message to display if the user "opts out"/clicks "cancel"
