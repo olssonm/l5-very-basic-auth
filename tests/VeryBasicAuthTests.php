@@ -28,6 +28,7 @@ class VeryBasicAuthTests extends \Orchestra\Testbench\TestCase {
 	public function test_very_basic_auth_route_filter_is_set()
 	{
 		$middlewares = $this->app->router->getMiddleware();
+
 		$this->assertTrue(in_array('Olssonm\VeryBasicAuth\Http\Middleware\VeryBasicAuth', $middlewares));
 		$this->assertTrue(array_key_exists('auth.very_basic', $middlewares));
 	}
