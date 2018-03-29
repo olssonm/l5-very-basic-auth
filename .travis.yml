@@ -7,19 +7,9 @@ before_script:
   - travis_retry composer require "illuminate/support:${ILLUMINATE_VERSION}"
 
 script:
-  - phpunit
+  - ./vendor/bin/phpunit
 
 matrix:
   include:
     - php: 5.6
       env: ILLUMINATE_VERSION=5.1.*
-    - php: 7.0
-      env: ILLUMINATE_VERSION=5.1.*
-    - php: 7.0
-      env: ILLUMINATE_VERSION=5.2.*
-    - php: 7.1
-      env: ILLUMINATE_VERSION=5.1.*
-    - php: 7.1
-      env: ILLUMINATE_VERSION=5.2.*
-    - php: 7.2
-      env: ILLUMINATE_VERSION=5.2.*
