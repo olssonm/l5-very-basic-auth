@@ -4,8 +4,11 @@
 [![Total downloads][ico-downloads]][link-packagist]
 [![Software License][ico-license]](LICENSE.md)
 [![Build Status][ico-travis]][link-travis]
+[![Scrutinizer Score][ico-scrutinizer]][link-scrutinizer]
 
-利用可能なドキュメントは以下です:
+![very-basic-auth](https://user-images.githubusercontent.com/907114/40575964-331559ce-60ef-11e8-8366-aba700fc5567.png)
+
+**利用可能なドキュメントは以下です:**
 
 🇬🇧 [English](README.md)  
 🇯🇵 [日本語](README.jp.md)
@@ -140,5 +143,7 @@ MITライセンスです。 詳しくはこちらを見てください。[Licens
 [ico-license]: https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square
 [ico-travis]: https://img.shields.io/travis/olssonm/l5-very-basic-auth/master.svg?style=flat-square
 [ico-downloads]: https://img.shields.io/packagist/dt/olssonm/l5-very-basic-auth.svg?style=flat-square
+[ico-scrutinizer]: https://img.shields.io/scrutinizer/g/olssonm/l5-very-basic-auth.svg?style=flat-square
 [link-packagist]: https://packagist.org/packages/olssonm/l5-very-basic-auth
 [link-travis]: https://travis-ci.org/olssonm/l5-very-basic-auth
+[link-scrutinizer]: https://scrutinizer-ci.com/g/olssonm/l5-very-basic-auth
