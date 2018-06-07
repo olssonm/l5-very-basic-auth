@@ -51,7 +51,9 @@ class VeryBasicAuthTests extends \Orchestra\Testbench\TestCase {
 
         $result = $this->middleware->handle($request, $next);
 
-		$this->assertEquals('Basic', $result->headers->get('www-authenticate'));
+        $realm = config('very_basic_auth.realm');
+
+		$this->assertEquals('Basic realm="' . $realm . '"', $result->headers->get('www-authenticate'));
 		$this->assertEquals(401, $result->getStatusCode());
         $this->assertEquals(config('very_basic_auth.error_message'), $result->getContent());
 	}
@@ -74,7 +76,9 @@ class VeryBasicAuthTests extends \Orchestra\Testbench\TestCase {
 
         $result = $this->middleware->handle($request, $next);
 
-		$this->assertEquals('Basic', $result->headers->get('www-authenticate'));
+        $realm = config('very_basic_auth.realm');
+
+        $this->assertEquals('Basic realm="' . $realm . '"', $result->headers->get('www-authenticate'));
 		$this->assertEquals(401, $result->getStatusCode());
         $this->assertEquals(config('very_basic_auth.error_message'), $result->getContent());
 	}
@@ -97,7 +101,9 @@ class VeryBasicAuthTests extends \Orchestra\Testbench\TestCase {
 
         $result = $this->middleware->handle($request, $next);
 
-		$this->assertEquals('Basic', $result->headers->get('www-authenticate'));
+        $realm = config('very_basic_auth.realm');
+
+        $this->assertEquals('Basic realm="' . $realm . '"', $result->headers->get('www-authenticate'));
 		$this->assertEquals(401, $result->getStatusCode());
         $this->assertEquals(config('very_basic_auth.error_message'), $result->getContent());
 	}
@@ -120,7 +126,9 @@ class VeryBasicAuthTests extends \Orchestra\Testbench\TestCase {
 
         $result = $this->middleware->handle($request, $next);
 
-		$this->assertEquals('Basic', $result->headers->get('www-authenticate'));
+        $realm = config('very_basic_auth.realm');
+
+        $this->assertEquals('Basic realm="' . $realm . '"', $result->headers->get('www-authenticate'));
 		$this->assertEquals(401, $result->getStatusCode());
         $this->assertEquals(config('very_basic_auth.error_message'), $result->getContent());
 	}
@@ -168,7 +176,9 @@ class VeryBasicAuthTests extends \Orchestra\Testbench\TestCase {
 
         $result = $this->middleware->handle($request, $next);
 
-		$this->assertEquals('Basic', $result->headers->get('www-authenticate'));
+        $realm = config('very_basic_auth.realm');
+
+        $this->assertEquals('Basic realm="' . $realm . '"', $result->headers->get('www-authenticate'));
 		$this->assertEquals(401, $result->getStatusCode());
         $this->assertContains('This is the default view for the l5-very-basic-auth-package', $result->getContent());
 	}
@@ -205,7 +215,9 @@ class VeryBasicAuthTests extends \Orchestra\Testbench\TestCase {
 
         $result = $this->middleware->handle($request, $next);
 
-		$this->assertEquals('Basic', $result->headers->get('www-authenticate'));
+        $realm = config('very_basic_auth.realm');
+
+        $this->assertEquals('Basic realm="' . $realm . '"', $result->headers->get('www-authenticate'));
 		$this->assertEquals(401, $result->getStatusCode());
         $this->assertEquals(config('very_basic_auth.error_message'), $result->getContent());
 	}
@@ -224,7 +236,9 @@ class VeryBasicAuthTests extends \Orchestra\Testbench\TestCase {
 
         $result = $this->middleware->handle($request, $next);
 
-		$this->assertEquals('Basic', $result->headers->get('www-authenticate'));
+        $realm = config('very_basic_auth.realm');
+
+        $this->assertEquals('Basic realm="' . $realm . '"', $result->headers->get('www-authenticate'));
 		$this->assertEquals(401, $result->getStatusCode());
         $this->assertEquals(config('very_basic_auth.error_message'), $result->getContent());
 	}
