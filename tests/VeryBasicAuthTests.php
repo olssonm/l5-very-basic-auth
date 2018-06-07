@@ -51,7 +51,7 @@ class VeryBasicAuthTests extends \Orchestra\Testbench\TestCase {
 
         $result = $this->middleware->handle($request, $next);
 
-        $realm = config('very_basic_auth.realm');
+        $realm = config('very_basic_auth.realm', 'Basic Auth');
 
 		$this->assertEquals('Basic realm="' . $realm . '"', $result->headers->get('www-authenticate'));
 		$this->assertEquals(401, $result->getStatusCode());
@@ -76,7 +76,7 @@ class VeryBasicAuthTests extends \Orchestra\Testbench\TestCase {
 
         $result = $this->middleware->handle($request, $next);
 
-        $realm = config('very_basic_auth.realm');
+        $realm = config('very_basic_auth.realm', 'Basic Auth');
 
         $this->assertEquals('Basic realm="' . $realm . '"', $result->headers->get('www-authenticate'));
 		$this->assertEquals(401, $result->getStatusCode());
@@ -101,7 +101,7 @@ class VeryBasicAuthTests extends \Orchestra\Testbench\TestCase {
 
         $result = $this->middleware->handle($request, $next);
 
-        $realm = config('very_basic_auth.realm');
+        $realm = config('very_basic_auth.realm', 'Basic Auth');
 
         $this->assertEquals('Basic realm="' . $realm . '"', $result->headers->get('www-authenticate'));
 		$this->assertEquals(401, $result->getStatusCode());
@@ -126,7 +126,7 @@ class VeryBasicAuthTests extends \Orchestra\Testbench\TestCase {
 
         $result = $this->middleware->handle($request, $next);
 
-        $realm = config('very_basic_auth.realm');
+        $realm = config('very_basic_auth.realm', 'Basic Auth');
 
         $this->assertEquals('Basic realm="' . $realm . '"', $result->headers->get('www-authenticate'));
 		$this->assertEquals(401, $result->getStatusCode());
@@ -176,7 +176,7 @@ class VeryBasicAuthTests extends \Orchestra\Testbench\TestCase {
 
         $result = $this->middleware->handle($request, $next);
 
-        $realm = config('very_basic_auth.realm');
+        $realm = config('very_basic_auth.realm', 'Basic Auth');
 
         $this->assertEquals('Basic realm="' . $realm . '"', $result->headers->get('www-authenticate'));
 		$this->assertEquals(401, $result->getStatusCode());
@@ -215,7 +215,7 @@ class VeryBasicAuthTests extends \Orchestra\Testbench\TestCase {
 
         $result = $this->middleware->handle($request, $next);
 
-        $realm = config('very_basic_auth.realm');
+        $realm = config('very_basic_auth.realm', 'Basic Auth');
 
         $this->assertEquals('Basic realm="' . $realm . '"', $result->headers->get('www-authenticate'));
 		$this->assertEquals(401, $result->getStatusCode());
@@ -236,7 +236,7 @@ class VeryBasicAuthTests extends \Orchestra\Testbench\TestCase {
 
         $result = $this->middleware->handle($request, $next);
 
-        $realm = config('very_basic_auth.realm');
+        $realm = config('very_basic_auth.realm', 'Basic Auth');
 
         $this->assertEquals('Basic realm="' . $realm . '"', $result->headers->get('www-authenticate'));
 		$this->assertEquals(401, $result->getStatusCode());

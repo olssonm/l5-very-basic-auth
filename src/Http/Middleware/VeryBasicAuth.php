@@ -20,6 +20,10 @@ class VeryBasicAuth
         if(in_array('*', $config['envs']) || in_array(app()->environment(), $config['envs'])) {
             if($request->getUser() != $config['user'] || $request->getPassword() != $config['password']) {
 
+                if (!isset($config['realm'])) {
+                    $config['realm'] = 'Basic Auth';
+                }
+
                 $header = ['WWW-Authenticate' => 'Basic realm="' . $config['realm'] . '"'];
 
                 // If view is available
