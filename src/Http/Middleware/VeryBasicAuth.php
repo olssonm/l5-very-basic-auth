@@ -13,9 +13,6 @@ class VeryBasicAuth
      */
     public function handle($request, Closure $next)
     {
-        // Load configuration
-        $config = config('very_basic_auth');
-
         // Check if middleware is in use in current environment
         if(count(array_intersect(['*', app()->environment()], config('very_basic_auth.envs'))) > 0) {
 
