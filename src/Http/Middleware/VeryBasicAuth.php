@@ -17,23 +17,23 @@ class VeryBasicAuth
         $config = config('very_basic_auth');
 
         // Check if middleware is in use in current environment
-        if(in_array('*', $config['envs']) || in_array(app()->environment(), $config['envs'])) {
-            if($request->getUser() != $config['user'] || $request->getPassword() != $config['password']) {
+        if(count(array_intersect(['*', app()->environment()], config('very_basic_auth.envs'))) > 0) {
 
-                if (!isset($config['realm'])) {
-                    $config['realm'] = 'Basic Auth';
-                }
+            // Check for credentials
+            if($request->getUser() != config('very_basic_auth.user') || $request->getPassword() != config('very_basic_auth.password')) {
 
-                $header = ['WWW-Authenticate' => 'Basic realm="' . $config['realm'] . '"'];
+                // Build header
+                $header = ['WWW-Authenticate' => sprintf('Basic realm="%s", charset="UTF-8"', config('very_basic_auth.realm', 'Basic Auth'))];
 
                 // If view is available
-                if (isset($config['error_view'])) {
-                    return response()->view($config['error_view'], [], 401)
+                $view = config('very_basic_auth.error_view');
+                if (isset($view)) {
+                    return response()->view($view, [], 401)
                         ->withHeaders($header);
                 }
 
                 // Else return default message
-                return response($config['error_message'], 401, $header);
+                return response(config('very_basic_auth.error_message'), 401, $header);
             }
         }
 
