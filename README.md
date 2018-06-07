@@ -160,7 +160,8 @@ Laravel always runs in the "testing" environment while running tests. Make sure 
 A big thank you to the people who has contributed to this package, among others:
 
 **[kazuhei](https://github.com/kazuhei)** – for providing the awesome Japanese translation  
-**[freekmurze](https://github.com/freekmurze)** – for additional information on package/vendor installations
+**[freekmurze](https://github.com/freekmurze)** – for additional information on package/vendor installations  
+**[faiare](https://github.com/faiare)** – for pointing out and implementing the `realm`-attribute ([RFC7235](https://tools.ietf.org/html/rfc7235#section-2.2))
 
 
 ## License
