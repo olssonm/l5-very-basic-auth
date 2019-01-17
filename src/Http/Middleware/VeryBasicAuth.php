@@ -22,6 +22,13 @@ class VeryBasicAuth
                 // Build header
                 $header = ['WWW-Authenticate' => sprintf('Basic realm="%s", charset="UTF-8"', config('very_basic_auth.realm', 'Basic Auth'))];
 
+                // If the request want's JSON
+                if ($request->wantsJson()) {
+                    return response()->json([
+                        'message' => config('very_basic_auth.error_message')
+                    ], 401, $header);
+                }
+
                 // If view is available
                 $view = config('very_basic_auth.error_view');
                 if (isset($view)) {
