@@ -5,6 +5,7 @@
 [![Software License][ico-license]](LICENSE.md)
 [![Build Status][ico-travis]][link-travis]
 [![Scrutinizer Score][ico-scrutinizer]][link-scrutinizer]
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Folssonm%2Fl5-very-basic-auth.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2Folssonm%2Fl5-very-basic-auth?ref=badge_shield)
 
 ![very-basic-auth](https://user-images.githubusercontent.com/907114/40575964-331559ce-60ef-11e8-8366-aba700fc5567.png)
 
@@ -178,3 +179,6 @@ The MIT License (MIT). Please see [License File](LICENSE.md) for more informatio
 [link-packagist]: https://packagist.org/packages/olssonm/l5-very-basic-auth
 [link-travis]: https://travis-ci.org/olssonm/l5-very-basic-auth
 [link-scrutinizer]: https://scrutinizer-ci.com/g/olssonm/l5-very-basic-auth
+
+
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Folssonm%2Fl5-very-basic-auth.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2Folssonm%2Fl5-very-basic-auth?ref=badge_large)
