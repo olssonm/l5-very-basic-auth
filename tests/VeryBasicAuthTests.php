@@ -156,6 +156,33 @@ class VeryBasicAuthTests extends \Orchestra\Testbench\TestCase {
 	}
 
 	/** @test */
+	public function test_very_basic_auth_json_failed_response()
+	{
+		$request = new Request();
+        $response = new JsonResponse();
+
+		$user = config('very_basic_auth.user');
+		$pass = config('very_basic_auth.password');
+
+		$request->headers->add(['PHP_AUTH_USER' => $user]);
+		$request->headers->add(['PHP_AUTH_PW' => 1]);
+		$request->headers->add(['Accept' => 'application/json']);
+
+        $next = function($request) use ($response) {
+            return $response;
+        };
+
+        $result = $this->middleware->handle($request, $next);
+
+		$content = json_decode($result->getContent());
+
+	   	$this->assertEquals(401, $result->getStatusCode());
+		$this->assertEquals(json_last_error(), JSON_ERROR_NONE);
+		$this->assertEquals('application/json', $result->headers->get('content-type'));
+	    $this->assertEquals(config('very_basic_auth.error_message'), $content->message);
+	}
+
+	/** @test */
 	public function test_very_basic_auth_view_incorrect_credentials()
 	{
 		// Set the middleware to use a view
