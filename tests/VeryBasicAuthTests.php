@@ -1,4 +1,4 @@
-<?php namespace Olssonm\VeryBasicAuth;
+<?php namespace Olssonm\VeryBasicAuth\Tests;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
@@ -7,11 +7,7 @@ use Olssonm\VeryBasicAuth\Http\Middleware\VeryBasicAuth;
 
 class VeryBasicAuthTests extends \Orchestra\Testbench\TestCase {
 
-	public function setUp()
-    {
-        parent::setUp();
-        $this->middleware = new VeryBasicAuth;
-    }
+	protected $middleware;
 
     /**
      * Load the package
@@ -207,7 +203,13 @@ class VeryBasicAuthTests extends \Orchestra\Testbench\TestCase {
 
         $this->assertEquals('Basic realm="' . $realm . '", charset="UTF-8"', $result->headers->get('WWW-Authenticate'));
 		$this->assertEquals(401, $result->getStatusCode());
-        $this->assertContains('This is the default view for the l5-very-basic-auth-package', $result->getContent());
+
+		// PHPUNIT 7.5.6+
+		if (method_exists($this, 'assertStringContainsStringIgnoringCase')) {
+			$this->assertStringContainsStringIgnoringCase('This is the default view for the l5-very-basic-auth-package', $result->getContent());
+		} else {
+			$this->assertContains('This is the default view for the l5-very-basic-auth-package', $result->getContent());
+		}
 	}
 
 	/* test */
@@ -268,12 +270,5 @@ class VeryBasicAuthTests extends \Orchestra\Testbench\TestCase {
         $this->assertEquals('Basic realm="' . $realm . '", charset="UTF-8"', $result->headers->get('WWW-Authenticate'));
 		$this->assertEquals(401, $result->getStatusCode());
         $this->assertEquals(config('very_basic_auth.error_message'), $result->getContent());
-	}
-
-	/** Teardown */
-	public static function tearDownAfterClass()
-	{
-		parent::tearDownAfterClass();
-		unlink(__DIR__ . '/../src/config.php');
 	}
 }

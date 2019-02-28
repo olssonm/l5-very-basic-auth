@@ -5,15 +5,14 @@
          colors="true"
          convertErrorsToExceptions="true"
          convertNoticesToExceptions="true"
-         convertWarningsToExceptions="true"
+         convertWarningsToExceptions="false"
          processIsolation="false"
          stopOnFailure="false"
-         syntaxCheck="false"
 >
     <testsuites>
         <testsuite name="Package Test Suite">
-            <directory suffix=".php">./tests/</directory>
-            <exclude suffix=".php">./tests/app/</exclude>
+            <file phpVersion="7.1" phpVersionOperator="lt">./tests/PHP70.php</file>
+            <file phpVersion="7.1" phpVersionOperator="ge">./tests/PHP71.php</file>
         </testsuite>
     </testsuites>
 </phpunit>

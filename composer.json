@@ -17,11 +17,11 @@
         }
     ],
     "require": {
-        "illuminate/support": ">=5.4.0",
+        "illuminate/support": ">=5.4",
         "php" : "^7.0"
     },
     "require-dev": {
-        "phpunit/phpunit": "^6.5 || 7.1",
+        "phpunit/phpunit": "^6.5 || ^7.5",
         "orchestra/testbench": ">=3.4.0"
     },
     "autoload": {
@@ -31,7 +31,7 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "Olssonm\\VeryBasicAuth\\Test\\": "tests"
+            "Olssonm\\VeryBasicAuth\\Tests\\": "tests"
         }
     },
     "scripts": {
