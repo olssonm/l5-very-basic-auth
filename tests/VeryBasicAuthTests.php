@@ -7,7 +7,7 @@ use Olssonm\VeryBasicAuth\Http\Middleware\VeryBasicAuth;
 
 class VeryBasicAuthTests extends \Orchestra\Testbench\TestCase {
 
-	public function setUp()
+	public function setUp(): void
     {
         parent::setUp();
         $this->middleware = new VeryBasicAuth;
