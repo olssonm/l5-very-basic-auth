@@ -203,7 +203,13 @@ class VeryBasicAuthTests extends \Orchestra\Testbench\TestCase {
 
         $this->assertEquals('Basic realm="' . $realm . '", charset="UTF-8"', $result->headers->get('WWW-Authenticate'));
 		$this->assertEquals(401, $result->getStatusCode());
-        $this->assertContains('This is the default view for the l5-very-basic-auth-package', $result->getContent());
+
+		// PHPUNIT 7.5.6+
+		if (method_exists($this, 'assertStringContainsStringIgnoringCase')) {
+			$this->assertStringContainsStringIgnoringCase('This is the default view for the l5-very-basic-auth-package', $result->getContent());
+		} else {
+			$this->assertContains('This is the default view for the l5-very-basic-auth-package', $result->getContent());
+		}
 	}
 
 	/* test */
