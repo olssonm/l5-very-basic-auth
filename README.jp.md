@@ -137,7 +137,7 @@ $ phpunit
 
 MITライセンスです。 詳しくはこちらを見てください。[License File](LICENSE.md)
 
-© 2018 [Marcus Olsson](https://marcusolsson.me).
+© 2019 [Marcus Olsson](https://marcusolsson.me).
 
 [ico-version]: https://img.shields.io/packagist/v/olssonm/l5-very-basic-auth.svg?style=flat-square
 [ico-license]: https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square
