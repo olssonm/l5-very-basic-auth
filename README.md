@@ -141,6 +141,18 @@ Route::get('/', [
 ]);
 ```
 
+You may also set the credentials inline;
+
+``` php
+Route::get('/', [
+    'as' => 'start',
+    'uses' => 'StartController@index',
+    'middleware' => 'auth.very_basic:username,password'
+]);
+```
+
+*Note:* inline credentials always take president over the `very_basic_auth.php`-configuration file.
+
 ## Testing
 
 ``` bash
