@@ -11,13 +11,16 @@ class VeryBasicAuth
      * @param  \Closure  $next
      * @return mixed
      */
-    public function handle($request, Closure $next)
+    public function handle($request, Closure $next, $username = null, $password = null)
     {
         // Check if middleware is in use in current environment
         if(count(array_intersect(['*', app()->environment()], config('very_basic_auth.envs'))) > 0) {
 
+            $authUsername = (empty($username)) ? config('very_basic_auth.user') : $username;
+            $authPassword = (empty($password)) ? config('very_basic_auth.password') : $password;
+
             // Check for credentials
-            if($request->getUser() != config('very_basic_auth.user') || $request->getPassword() != config('very_basic_auth.password')) {
+            if($request->getUser() !== $authUsername || $request->getPassword() !== $authPassword) {
 
                 // Build header
                 $header = ['WWW-Authenticate' => sprintf('Basic realm="%s", charset="UTF-8"', config('very_basic_auth.realm', 'Basic Auth'))];

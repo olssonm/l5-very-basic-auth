@@ -158,10 +158,10 @@ class VeryBasicAuthTests extends \Orchestra\Testbench\TestCase {
         $response = new JsonResponse();
 
 		$user = config('very_basic_auth.user');
-		$pass = config('very_basic_auth.password');
+		$pass = str_random(20);
 
 		$request->headers->add(['PHP_AUTH_USER' => $user]);
-		$request->headers->add(['PHP_AUTH_PW' => 1]);
+		$request->headers->add(['PHP_AUTH_PW' => $pass]);
 		$request->headers->add(['Accept' => 'application/json']);
 
         $next = function($request) use ($response) {
@@ -270,5 +270,53 @@ class VeryBasicAuthTests extends \Orchestra\Testbench\TestCase {
         $this->assertEquals('Basic realm="' . $realm . '", charset="UTF-8"', $result->headers->get('WWW-Authenticate'));
 		$this->assertEquals(401, $result->getStatusCode());
         $this->assertEquals(config('very_basic_auth.error_message'), $result->getContent());
+	}
+
+	/* test */
+	public function test_inline_credentials_success()
+	{
+		config()->set('very_basic_auth.user', 'test');
+		config()->set('very_basic_auth.password', 'test');
+
+		// Use random user and password
+		$user = str_random(20);
+		$pass = str_random(20);
+
+		$request = new Request();
+		$response = new JsonResponse();
+		$next = function($request) use ($response) {
+            return $response;
+        };
+
+		$request->headers->add(['PHP_AUTH_USER' => $user]);
+		$request->headers->add(['PHP_AUTH_PW' => $pass]);
+
+        $result = $this->middleware->handle($request, $next, $user, $pass);
+
+		$this->assertEquals(200, $result->getStatusCode());
+	}
+
+	/* test */
+	public function test_inline_credentials_fail()
+	{
+		config()->set('very_basic_auth.user', 'test');
+		config()->set('very_basic_auth.password', 'test');
+
+		// Use random user and password
+		$user = str_random(20);
+		$pass = str_random(20);
+
+		$request = new Request();
+		$response = new JsonResponse();
+		$next = function($request) use ($response) {
+            return $response;
+        };
+
+		$request->headers->add(['PHP_AUTH_USER' => $user]);
+		$request->headers->add(['PHP_AUTH_PW' => $pass]);
+
+        $result = $this->middleware->handle($request, $next, 'test', 'test');
+
+		$this->assertEquals(401, $result->getStatusCode());
 	}
 }

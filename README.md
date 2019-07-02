@@ -141,6 +141,18 @@ Route::get('/', [
 ]);
 ```
 
+You may also set the credentials inline;
+
+``` php
+Route::get('/', [
+    'as' => 'start',
+    'uses' => 'StartController@index',
+    'middleware' => 'auth.very_basic:username,password'
+]);
+```
+
+*Note:* inline credentials always take president over the `very_basic_auth.php`-configuration file.
+
 ## Testing
 
 ``` bash
@@ -168,7 +180,7 @@ A big thank you to the people who has contributed to this package, among others:
 
 The MIT License (MIT). Please see [License File](LICENSE.md) for more information.
 
-© 2018 [Marcus Olsson](https://marcusolsson.me).
+© 2019 [Marcus Olsson](https://marcusolsson.me).
 
 [ico-version]: https://img.shields.io/packagist/v/olssonm/l5-very-basic-auth.svg?style=flat-square
 [ico-license]: https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square
