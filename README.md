@@ -29,9 +29,8 @@ While HTTP Basic Auth does give you a protection layer against unwanted visitors
 
 Laravel                                | l5-very-basic-auth
 :--------------------------------------|:----------
-`5.1.*/5.2.*`                          | `1.*`
-`5.3.*`                                | `2.*`
 `^5.4`                                 | `5.*`
+`^6`                                   | `6.*`
 
 *The odd versioning is due to breaking changes in the testing framework and PHP versions. Else, `3.x` is usable for Laravel 5.4 (PHP 5.6 and up) and `4.x` for Laravel 5.5.*
 
