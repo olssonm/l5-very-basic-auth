@@ -1,6 +1,7 @@
 <?php namespace Olssonm\VeryBasicAuth;
 
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Str;
 
 class VeryBasicAuthServiceProvider extends ServiceProvider
 {
@@ -71,7 +72,7 @@ class VeryBasicAuthServiceProvider extends ServiceProvider
     private function createConfig()
     {
         $data = file_get_contents($this->stub);
-        $data = str_replace('%password%', str_random(8), $data);
+        $data = str_replace('%password%', Str::random(8), $data);
         return file_put_contents($this->config, $data);
     }
 }
