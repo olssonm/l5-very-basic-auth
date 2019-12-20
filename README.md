@@ -52,7 +52,7 @@ Since v4.* (for Laravel 5.5) this package uses Package Auto-Discovery for loadin
 Discovered Package: olssonm/l5-very-basic-auth
 ```
 
-If you would like to manually add the provider, turn of Auto-Discovery for the package in your composer.json-file:
+If you would like to manually add the provider, turn off Auto-Discovery for the package in your composer.json-file:
 
 ``` json
 "extra": {
