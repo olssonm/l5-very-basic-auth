@@ -118,6 +118,19 @@ Route::get('/', [
 ]);
 ```
 
+認証情報をルート上に記述することもできます。
+
+``` php
+Route::get('/', [
+    'as' => 'start',
+    'uses' => 'StartController@index',
+    'middleware' => 'auth.very_basic:username,password'
+]);
+```
+
+*Note:* 認証情報をルート上に記述した場合、設定ファイルの`very_basic_auth.php`より優先されます。
+
+
 ## テスト
 
 ``` bash
