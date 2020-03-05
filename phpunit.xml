@@ -11,8 +11,7 @@
 >
     <testsuites>
         <testsuite name="Package Test Suite">
-            <file phpVersion="7.1" phpVersionOperator="lt">./tests/PHP70.php</file>
-            <file phpVersion="7.1" phpVersionOperator="ge">./tests/PHP71.php</file>
+            <file>./tests/VeryBasicAuthTests.php</file>
         </testsuite>
     </testsuites>
 </phpunit>
