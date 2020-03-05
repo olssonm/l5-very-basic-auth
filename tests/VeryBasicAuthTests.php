@@ -9,6 +9,13 @@ class VeryBasicAuthTests extends \Orchestra\Testbench\TestCase {
 
 	protected $middleware;
 
+	/** Setup **/
+    public function setUp(): void
+    {
+        parent::setUp();
+        $this->middleware = new VeryBasicAuth;
+    }
+
     /**
      * Load the package
      * @return array the packages
@@ -318,5 +325,12 @@ class VeryBasicAuthTests extends \Orchestra\Testbench\TestCase {
         $result = $this->middleware->handle($request, $next, 'test', 'test');
 
 		$this->assertEquals(401, $result->getStatusCode());
+	}
+
+	/** Teardown */
+	public static function tearDownAfterClass(): void
+	{
+		parent::tearDownAfterClass();
+		unlink(__DIR__ . '/../src/config.php');
 	}
 }
