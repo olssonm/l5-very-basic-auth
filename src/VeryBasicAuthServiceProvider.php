@@ -28,7 +28,7 @@ class VeryBasicAuthServiceProvider extends ServiceProvider
         $this->stub = __DIR__ . '/config.stub';
 
         // Check that config-file exists
-        if(!file_exists($this->config)) {
+        if (!file_exists($this->config)) {
             $this->createConfig();
         }
 
