@@ -1,29 +1,34 @@
-<?php namespace Olssonm\VeryBasicAuth;
+<?php
+
+namespace Olssonm\VeryBasicAuth;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Str;
 
 class VeryBasicAuthServiceProvider extends ServiceProvider
 {
-
     /**
      * Path to config-file
+     *
      * @var string
      */
     protected $config;
 
     /**
      * Path to stub
+     *
      * @var string
      */
     protected $stub;
 
     /**
      * Constructor
+     *
      * @param  \Illuminate\Contracts\Foundation\Application  $app
      * @return void
      */
-    public function __construct($app) {
+    public function __construct($app)
+    {
         $this->config = __DIR__ . '/config.php';
         $this->stub = __DIR__ . '/config.stub';
 
@@ -37,6 +42,7 @@ class VeryBasicAuthServiceProvider extends ServiceProvider
 
     /**
      * Perform post-registration booting of services.
+     *
      * @return void
      */
     public function boot(\Illuminate\Routing\Router $router)
@@ -55,18 +61,21 @@ class VeryBasicAuthServiceProvider extends ServiceProvider
 
     /**
      * Register any package services.
+     *
      * @return void
      */
     public function register()
     {
         // If the user doesn't set their own config, load default
         $this->mergeConfigFrom(
-            $this->config, 'very_basic_auth'
+            $this->config,
+            'very_basic_auth'
         );
     }
 
     /**
      * Crates a new config-file with a random password
+     *
      * @return string bytes written
      */
     private function createConfig()

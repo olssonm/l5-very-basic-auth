@@ -1,31 +1,34 @@
-<?php namespace Olssonm\VeryBasicAuth\Tests;
+<?php
+
+namespace Olssonm\VeryBasicAuth\Tests;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 
 use Olssonm\VeryBasicAuth\Http\Middleware\VeryBasicAuth;
 
-class VeryBasicAuthTests extends \Orchestra\Testbench\TestCase {
+class VeryBasicAuthTests extends \Orchestra\Testbench\TestCase
+{
 
 	protected $middleware;
 
 	/** Setup **/
-    public function setUp(): void
-    {
-        parent::setUp();
-        $this->middleware = new VeryBasicAuth;
-    }
+	public function setUp(): void
+	{
+		parent::setUp();
+		$this->middleware = new VeryBasicAuth;
+	}
 
-    /**
-     * Load the package
-     * @return array the packages
-     */
-    protected function getPackageProviders($app)
-    {
-        return [
-            \Olssonm\VeryBasicAuth\VeryBasicAuthServiceProvider::class
-        ];
-    }
+	/**
+	 * Load the package
+	 * @return array the packages
+	 */
+	protected function getPackageProviders($app)
+	{
+		return [
+			\Olssonm\VeryBasicAuth\VeryBasicAuthServiceProvider::class
+		];
+	}
 
 	/** @test */
 	public function test_very_basic_auth_route_filter_is_set()
@@ -46,26 +49,26 @@ class VeryBasicAuthTests extends \Orchestra\Testbench\TestCase {
 	public function test_very_basic_auth_authenticate_no_credentials()
 	{
 		$request = new Request();
-        $response = new JsonResponse();
+		$response = new JsonResponse();
 
-        $next = function($request) use ($response) {
-            return $response;
-        };
+		$next = function ($request) use ($response) {
+			return $response;
+		};
 
-        $result = $this->middleware->handle($request, $next);
+		$result = $this->middleware->handle($request, $next);
 
-        $realm = config('very_basic_auth.realm', 'Basic Auth');
+		$realm = config('very_basic_auth.realm', 'Basic Auth');
 
 		$this->assertEquals('Basic realm="' . $realm . '", charset="UTF-8"', $result->headers->get('WWW-Authenticate'));
 		$this->assertEquals(401, $result->getStatusCode());
-        $this->assertEquals(config('very_basic_auth.error_message'), $result->getContent());
+		$this->assertEquals(config('very_basic_auth.error_message'), $result->getContent());
 	}
 
 	/** @test */
 	public function test_very_basic_auth_authenticate_incorrect_credentials()
 	{
 		$request = new Request();
-        $response = new JsonResponse();
+		$response = new JsonResponse();
 
 		$user = str_random(20);
 		$pass = str_random(20);
@@ -73,24 +76,24 @@ class VeryBasicAuthTests extends \Orchestra\Testbench\TestCase {
 		$request->headers->add(['PHP_AUTH_USER' => $user]);
 		$request->headers->add(['PHP_AUTH_PW' => $pass]);
 
-        $next = function($request) use ($response) {
-            return $response;
-        };
+		$next = function ($request) use ($response) {
+			return $response;
+		};
 
-        $result = $this->middleware->handle($request, $next);
+		$result = $this->middleware->handle($request, $next);
 
-        $realm = config('very_basic_auth.realm', 'Basic Auth');
+		$realm = config('very_basic_auth.realm', 'Basic Auth');
 
-        $this->assertEquals('Basic realm="' . $realm . '", charset="UTF-8"', $result->headers->get('WWW-Authenticate'));
+		$this->assertEquals('Basic realm="' . $realm . '", charset="UTF-8"', $result->headers->get('WWW-Authenticate'));
 		$this->assertEquals(401, $result->getStatusCode());
-        $this->assertEquals(config('very_basic_auth.error_message'), $result->getContent());
+		$this->assertEquals(config('very_basic_auth.error_message'), $result->getContent());
 	}
 
 	/** @test */
 	public function test_very_basic_auth_authenticate_incorrect_password()
 	{
 		$request = new Request();
-        $response = new JsonResponse();
+		$response = new JsonResponse();
 
 		$user = config('very_basic_auth.user');
 		$pass = str_random(20);
@@ -98,24 +101,24 @@ class VeryBasicAuthTests extends \Orchestra\Testbench\TestCase {
 		$request->headers->add(['PHP_AUTH_USER' => $user]);
 		$request->headers->add(['PHP_AUTH_PW' => $pass]);
 
-        $next = function($request) use ($response) {
-            return $response;
-        };
+		$next = function ($request) use ($response) {
+			return $response;
+		};
 
-        $result = $this->middleware->handle($request, $next);
+		$result = $this->middleware->handle($request, $next);
 
-        $realm = config('very_basic_auth.realm', 'Basic Auth');
+		$realm = config('very_basic_auth.realm', 'Basic Auth');
 
-        $this->assertEquals('Basic realm="' . $realm . '", charset="UTF-8"', $result->headers->get('WWW-Authenticate'));
+		$this->assertEquals('Basic realm="' . $realm . '", charset="UTF-8"', $result->headers->get('WWW-Authenticate'));
 		$this->assertEquals(401, $result->getStatusCode());
-        $this->assertEquals(config('very_basic_auth.error_message'), $result->getContent());
+		$this->assertEquals(config('very_basic_auth.error_message'), $result->getContent());
 	}
 
 	/** @test */
 	public function test_very_basic_auth_authenticate_incorrect_user()
 	{
 		$request = new Request();
-        $response = new JsonResponse();
+		$response = new JsonResponse();
 
 		$user = str_random(20);
 		$pass = config('very_basic_auth.password');
@@ -123,24 +126,24 @@ class VeryBasicAuthTests extends \Orchestra\Testbench\TestCase {
 		$request->headers->add(['PHP_AUTH_USER' => $user]);
 		$request->headers->add(['PHP_AUTH_PW' => $pass]);
 
-        $next = function($request) use ($response) {
-            return $response;
-        };
+		$next = function ($request) use ($response) {
+			return $response;
+		};
 
-        $result = $this->middleware->handle($request, $next);
+		$result = $this->middleware->handle($request, $next);
 
-        $realm = config('very_basic_auth.realm', 'Basic Auth');
+		$realm = config('very_basic_auth.realm', 'Basic Auth');
 
-        $this->assertEquals('Basic realm="' . $realm . '", charset="UTF-8"', $result->headers->get('WWW-Authenticate'));
+		$this->assertEquals('Basic realm="' . $realm . '", charset="UTF-8"', $result->headers->get('WWW-Authenticate'));
 		$this->assertEquals(401, $result->getStatusCode());
-        $this->assertEquals(config('very_basic_auth.error_message'), $result->getContent());
+		$this->assertEquals(config('very_basic_auth.error_message'), $result->getContent());
 	}
 
 	/** @test */
 	public function test_very_basic_auth_authenticate_correct_credentials()
 	{
 		$request = new Request();
-        $response = new JsonResponse();
+		$response = new JsonResponse();
 
 		$user = config('very_basic_auth.user');
 		$pass = config('very_basic_auth.password');
@@ -148,21 +151,21 @@ class VeryBasicAuthTests extends \Orchestra\Testbench\TestCase {
 		$request->headers->add(['PHP_AUTH_USER' => $user]);
 		$request->headers->add(['PHP_AUTH_PW' => $pass]);
 
-        $next = function($request) use ($response) {
-            return $response;
-        };
+		$next = function ($request) use ($response) {
+			return $response;
+		};
 
-        $result = $this->middleware->handle($request, $next);
+		$result = $this->middleware->handle($request, $next);
 
 		$this->assertEquals(200, $result->getStatusCode());
-        $this->assertEquals('{}', $result->getContent());
+		$this->assertEquals('{}', $result->getContent());
 	}
 
 	/** @test */
 	public function test_very_basic_auth_json_failed_response()
 	{
 		$request = new Request();
-        $response = new JsonResponse();
+		$response = new JsonResponse();
 
 		$user = config('very_basic_auth.user');
 		$pass = str_random(20);
@@ -171,18 +174,18 @@ class VeryBasicAuthTests extends \Orchestra\Testbench\TestCase {
 		$request->headers->add(['PHP_AUTH_PW' => $pass]);
 		$request->headers->add(['Accept' => 'application/json']);
 
-        $next = function($request) use ($response) {
-            return $response;
-        };
+		$next = function ($request) use ($response) {
+			return $response;
+		};
 
-        $result = $this->middleware->handle($request, $next);
+		$result = $this->middleware->handle($request, $next);
 
 		$content = json_decode($result->getContent());
 
-	   	$this->assertEquals(401, $result->getStatusCode());
+		$this->assertEquals(401, $result->getStatusCode());
 		$this->assertEquals(json_last_error(), JSON_ERROR_NONE);
 		$this->assertEquals('application/json', $result->headers->get('content-type'));
-	    $this->assertEquals(config('very_basic_auth.error_message'), $content->message);
+		$this->assertEquals(config('very_basic_auth.error_message'), $content->message);
 	}
 
 	/** @test */
@@ -192,7 +195,7 @@ class VeryBasicAuthTests extends \Orchestra\Testbench\TestCase {
 		config()->set('very_basic_auth.error_view', 'very_basic_auth::default');
 
 		$request = new Request();
-        $response = new JsonResponse();
+		$response = new JsonResponse();
 
 		$user = str_random(20);
 		$pass = str_random(20);
@@ -200,22 +203,22 @@ class VeryBasicAuthTests extends \Orchestra\Testbench\TestCase {
 		$request->headers->add(['PHP_AUTH_USER' => $user]);
 		$request->headers->add(['PHP_AUTH_PW' => $pass]);
 
-        $next = function($request) use ($response) {
-            return $response;
-        };
+		$next = function ($request) use ($response) {
+			return $response;
+		};
 
-        $result = $this->middleware->handle($request, $next);
+		$result = $this->middleware->handle($request, $next);
 
-        $realm = config('very_basic_auth.realm', 'Basic Auth');
+		$realm = config('very_basic_auth.realm', 'Basic Auth');
 
-        $this->assertEquals('Basic realm="' . $realm . '", charset="UTF-8"', $result->headers->get('WWW-Authenticate'));
+		$this->assertEquals('Basic realm="' . $realm . '", charset="UTF-8"', $result->headers->get('WWW-Authenticate'));
 		$this->assertEquals(401, $result->getStatusCode());
 
 		// PHPUNIT 7.5.6+
 		if (method_exists($this, 'assertStringContainsStringIgnoringCase')) {
-			$this->assertStringContainsStringIgnoringCase('This is the default view for the l5-very-basic-auth-package', $result->getContent());
+			$this->assertStringContainsStringIgnoringCase('This is the default view for the olssonm/l5-very-basic-auth-package', $result->getContent());
 		} else {
-			$this->assertContains('This is the default view for the l5-very-basic-auth-package', $result->getContent());
+			$this->assertContains('This is the default view for the olssonm/l5-very-basic-auth-package', $result->getContent());
 		}
 	}
 
@@ -227,11 +230,11 @@ class VeryBasicAuthTests extends \Orchestra\Testbench\TestCase {
 
 		$request = new Request();
 		$response = new JsonResponse();
-		$next = function($request) use ($response) {
-            return $response;
-        };
+		$next = function ($request) use ($response) {
+			return $response;
+		};
 
-        $result = $this->middleware->handle($request, $next);
+		$result = $this->middleware->handle($request, $next);
 
 		// 200 becouse we should be locked out; tests occurs in the testing env.
 		$this->assertEquals(200, $result->getStatusCode());
@@ -245,17 +248,17 @@ class VeryBasicAuthTests extends \Orchestra\Testbench\TestCase {
 
 		$request = new Request();
 		$response = new JsonResponse();
-		$next = function($request) use ($response) {
-            return $response;
-        };
+		$next = function ($request) use ($response) {
+			return $response;
+		};
 
-        $result = $this->middleware->handle($request, $next);
+		$result = $this->middleware->handle($request, $next);
 
-        $realm = config('very_basic_auth.realm', 'Basic Auth');
+		$realm = config('very_basic_auth.realm', 'Basic Auth');
 
-        $this->assertEquals('Basic realm="' . $realm . '", charset="UTF-8"', $result->headers->get('WWW-Authenticate'));
+		$this->assertEquals('Basic realm="' . $realm . '", charset="UTF-8"', $result->headers->get('WWW-Authenticate'));
 		$this->assertEquals(401, $result->getStatusCode());
-        $this->assertEquals(config('very_basic_auth.error_message'), $result->getContent());
+		$this->assertEquals(config('very_basic_auth.error_message'), $result->getContent());
 	}
 
 	/* test */
@@ -266,17 +269,17 @@ class VeryBasicAuthTests extends \Orchestra\Testbench\TestCase {
 
 		$request = new Request();
 		$response = new JsonResponse();
-		$next = function($request) use ($response) {
-            return $response;
-        };
+		$next = function ($request) use ($response) {
+			return $response;
+		};
 
-        $result = $this->middleware->handle($request, $next);
+		$result = $this->middleware->handle($request, $next);
 
-        $realm = config('very_basic_auth.realm', 'Basic Auth');
+		$realm = config('very_basic_auth.realm', 'Basic Auth');
 
-        $this->assertEquals('Basic realm="' . $realm . '", charset="UTF-8"', $result->headers->get('WWW-Authenticate'));
+		$this->assertEquals('Basic realm="' . $realm . '", charset="UTF-8"', $result->headers->get('WWW-Authenticate'));
 		$this->assertEquals(401, $result->getStatusCode());
-        $this->assertEquals(config('very_basic_auth.error_message'), $result->getContent());
+		$this->assertEquals(config('very_basic_auth.error_message'), $result->getContent());
 	}
 
 	/* test */
@@ -291,14 +294,14 @@ class VeryBasicAuthTests extends \Orchestra\Testbench\TestCase {
 
 		$request = new Request();
 		$response = new JsonResponse();
-		$next = function($request) use ($response) {
-            return $response;
-        };
+		$next = function ($request) use ($response) {
+			return $response;
+		};
 
 		$request->headers->add(['PHP_AUTH_USER' => $user]);
 		$request->headers->add(['PHP_AUTH_PW' => $pass]);
 
-        $result = $this->middleware->handle($request, $next, $user, $pass);
+		$result = $this->middleware->handle($request, $next, $user, $pass);
 
 		$this->assertEquals(200, $result->getStatusCode());
 	}
@@ -315,14 +318,14 @@ class VeryBasicAuthTests extends \Orchestra\Testbench\TestCase {
 
 		$request = new Request();
 		$response = new JsonResponse();
-		$next = function($request) use ($response) {
-            return $response;
-        };
+		$next = function ($request) use ($response) {
+			return $response;
+		};
 
 		$request->headers->add(['PHP_AUTH_USER' => $user]);
 		$request->headers->add(['PHP_AUTH_PW' => $pass]);
 
-        $result = $this->middleware->handle($request, $next, 'test', 'test');
+		$result = $this->middleware->handle($request, $next, 'test', 'test');
 
 		$this->assertEquals(401, $result->getStatusCode());
 	}

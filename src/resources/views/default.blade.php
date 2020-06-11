@@ -27,7 +27,7 @@
     </head>
     <body style="margin-bottom: 38px;">
         <div class="box">
-            <h3>This is the default view for the l5-very-basic-auth-package.</h3>
+            <h3>This is the default view for the olssonm/l5-very-basic-auth-package.</h3>
             <p>
                 To customize this, simply edit your <code>very_basic_auth</code>-configuration file and set
                 <code>error_view</code> to your own custom blade-template (the default is <code>very_basic_auth::default</code>).
