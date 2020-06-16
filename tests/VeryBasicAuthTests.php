@@ -46,6 +46,18 @@ class VeryBasicAuthTests extends \Orchestra\Testbench\TestCase
 	}
 
 	/** @test */
+	public function test_view_exists()
+	{
+		$view = file_get_contents(__DIR__ . '/../src/resources/views/default.blade.php');
+
+		if (method_exists($this, 'assertStringContainsStringIgnoringCase')) {
+			$this->assertStringContainsStringIgnoringCase('This is the default view for the olssonm/l5-very-basic-auth-package', $view);
+		} else {
+			$this->assertContains('This is the default view for the olssonm/l5-very-basic-auth-package', $view);
+		}
+	}
+
+	/** @test */
 	public function test_very_basic_auth_authenticate_no_credentials()
 	{
 		$request = new Request();
