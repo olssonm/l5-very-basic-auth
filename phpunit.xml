@@ -14,4 +14,12 @@
             <file>./tests/VeryBasicAuthTests.php</file>
         </testsuite>
     </testsuites>
+    <filter>
+        <whitelist>
+            <directory>src</directory>
+            <exclude>
+                <directory suffix=".blade.php">src</directory>
+            </exclude>
+        </whitelist>
+    </filter>
 </phpunit>

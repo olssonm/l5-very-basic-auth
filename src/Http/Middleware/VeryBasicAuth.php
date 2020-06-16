@@ -3,6 +3,7 @@
 namespace Olssonm\VeryBasicAuth\Http\Middleware;
 
 use \Illuminate\Http\Request;
+use \Symfony\Component\HttpFoundation\Response;
 
 use Closure;
 
@@ -11,13 +12,13 @@ class VeryBasicAuth
     /**
      * Handle an incoming request
      *
-     * @param \Illuminate\Http\Request  $request
-     * @param \Closure $next
-     * @param mixed $username
-     * @param mixed $password
-     * @return \Illuminate\Http\Response
+     * @param  Request  $request
+     * @param  Closure  $next
+     * @param  mixed    $username
+     * @param  mixed    $password
+     * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function handle(Request $request, Closure $next, $username = null, $password = null)
+    public function handle(Request $request, Closure $next, $username = null, $password = null): Response
     {
         $active = (count(array_intersect([
             '*',
@@ -42,7 +43,7 @@ class VeryBasicAuth
     /**
      * Return a error response
      *
-     * @param \Illuminate\Http\Request $request
+     * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     private function deniedResponse(Request $request)
