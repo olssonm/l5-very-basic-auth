@@ -13,14 +13,6 @@ script:
 
 jobs:
   include:
-    - php: 7.1
-      env:
-        - ILLUMINATE_VERSION=5.8.*
-        - PHPUNIT_VERSION=7.5
-    - php: 7.2
-      env:
-        - ILLUMINATE_VERSION=5.8.*
-        - PHPUNIT_VERSION=7.5
     - php: 7.2
       env:
         - ILLUMINATE_VERSION=^6.0
@@ -31,9 +23,13 @@ jobs:
         - PHPUNIT_VERSION=^8.0
     - php: 7.3
       env:
-        - ILLUMINATE_VERSION=^6.0
+        - ILLUMINATE_VERSION=^7.0
         - PHPUNIT_VERSION=^8.0
     - php: 7.3
       env:
-        - ILLUMINATE_VERSION=^7.0
+        - ILLUMINATE_VERSION=^8.0
+        - PHPUNIT_VERSION=^8.0
+    - php: 7.4
+      env:
+        - ILLUMINATE_VERSION=^8.0
         - PHPUNIT_VERSION=^8.0
