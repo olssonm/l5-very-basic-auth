@@ -33,3 +33,11 @@ jobs:
       env:
         - ILLUMINATE_VERSION=^8.0
         - PHPUNIT_VERSION=^8.0
+    - php: 8.0
+      env:
+        - ILLUMINATE_VERSION=^7.0
+        - PHPUNIT_VERSION=^8.0
+    - php: 8.0
+      env:
+        - ILLUMINATE_VERSION=^8.0
+        - PHPUNIT_VERSION=^9.0
