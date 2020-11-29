@@ -46,7 +46,7 @@ class VeryBasicAuth
      * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
-    private function deniedResponse(Request $request)
+    private function deniedResponse(Request $request): Response
     {
         // Build header
         $header = [
