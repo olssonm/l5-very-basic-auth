@@ -183,9 +183,9 @@ The MIT License (MIT). Please see [License File](LICENSE.md) for more informatio
 
 [ico-version]: https://img.shields.io/packagist/v/olssonm/l5-very-basic-auth.svg?style=flat-square
 [ico-license]: https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square
-[ico-travis]: https://img.shields.io/travis/olssonm/l5-very-basic-auth/master.svg?style=flat-square
+[ico-travis]: https://img.shields.io/travis/com/olssonm/l5-very-basic-auth/master.svg?style=flat-square
 [ico-downloads]: https://img.shields.io/packagist/dt/olssonm/l5-very-basic-auth.svg?style=flat-square
 [ico-scrutinizer]: https://img.shields.io/scrutinizer/g/olssonm/l5-very-basic-auth.svg?style=flat-square
 [link-packagist]: https://packagist.org/packages/olssonm/l5-very-basic-auth
-[link-travis]: https://travis-ci.org/olssonm/l5-very-basic-auth
+[link-travis]: https://travis-ci.com/olssonm/l5-very-basic-auth
 [link-scrutinizer]: https://scrutinizer-ci.com/g/olssonm/l5-very-basic-auth
