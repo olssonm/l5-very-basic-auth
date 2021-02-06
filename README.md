@@ -13,11 +13,11 @@
 🇬🇧 [English](README.md)  
 🇯🇵 [日本語](README.jp.md)
 
-This package allows you to add a HTTP Basic Auth filter on your routes, without the need to actually use a database – which the Laravel default `auth.basic`-middleware relies on.
+This package allows you to add a HTTP Basic Auth filter on your routes, without the need to use a database – which the Laravel default `auth.basic`-middleware relies on.
 
 <img width="400" alt="Screenshot" src="https://user-images.githubusercontent.com/907114/29876493-3907afd8-8d9d-11e7-8068-f461855c493b.png">
 
-Perfect if you want to give for example clients access to your development site, and you have yet to set up your database and/or models. Or perhaps your site doesn't even use a database and you still wish to keep it protected.
+Perfect when you want to give your clients access to your development site before you have yet to set up your database and/or models. Or perhaps your site doesn't even use a database and you still wish to keep it protected.
 
 On failed authentication the user will get a "401 Unauthorized" response.
 
@@ -27,12 +27,12 @@ While HTTP Basic Auth does give you a protection layer against unwanted visitors
 
 ## Version Compatibility
 
-Laravel                                | l5-very-basic-auth
-:--------------------------------------|:----------
-`^5.4`                                 | `5.*`
-<code>^6 &#124;&#124; ^7</code>        | `6.*`
+Laravel                                                | l5-very-basic-auth
+:------------------------------------------------------|:----------
+`^5.4`                                                 | `5.*`
+<code>^6 &#124;&#124; ^7 &#124;&#124; ^8</code>        | `6.*`
 
-*The odd versioning is due to breaking changes in the testing framework and PHP versions. Else, `3.x` is usable for Laravel 5.4 (PHP 5.6 and up) and `4.x` for Laravel 5.5.*
+*The odd versioning is due to breaking changes in the testing framework and PHP versions. `3.x`-releases are  for Laravel 5.4 (PHP 5.6 and up) and `4.x`-releases for Laravel 5.5.*
 
 #### Using Laravel 4.x?
 
