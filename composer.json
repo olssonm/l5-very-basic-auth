@@ -3,7 +3,7 @@
     "description": "Stateless HTTP basic auth without the need for a database. For Laravel 5",
     "keywords": [
         "olssonm",
-        "Laravel 5",
+        "laravel",
         "authentication",
         "http basic auth"
     ],

@@ -174,12 +174,11 @@ A big thank you to the people who has contributed to this package, among others:
 **[freekmurze](https://github.com/freekmurze)** – for additional information on package/vendor installations  
 **[faiare](https://github.com/faiare)** – for pointing out and implementing the `realm`-attribute ([RFC7235](https://tools.ietf.org/html/rfc7235#section-2.2))
 
-
 ## License
 
 The MIT License (MIT). Please see [License File](LICENSE.md) for more information.
 
-© 2020 [Marcus Olsson](https://marcusolsson.me).
+© 2021 [Marcus Olsson](https://marcusolsson.me).
 
 [ico-version]: https://img.shields.io/packagist/v/olssonm/l5-very-basic-auth.svg?style=flat-square
 [ico-license]: https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square
