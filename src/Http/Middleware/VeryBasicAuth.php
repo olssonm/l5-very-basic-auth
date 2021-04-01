@@ -2,9 +2,8 @@
 
 namespace Olssonm\VeryBasicAuth\Http\Middleware;
 
-use \Illuminate\Http\Request;
-use \Symfony\Component\HttpFoundation\Response;
-
+use Illuminate\Http\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Closure;
 
 class VeryBasicAuth
@@ -27,7 +26,6 @@ class VeryBasicAuth
 
         // Check if middleware is in use in current environment
         if ($active) {
-
             $authUsername = (empty($username)) ? config('very_basic_auth.user') : $username;
             $authPassword = (empty($password)) ? config('very_basic_auth.password') : $password;
 
@@ -50,20 +48,21 @@ class VeryBasicAuth
     {
         // Build header
         $header = [
-            'WWW-Authenticate' => sprintf('Basic realm="%s", charset="UTF-8"', config('very_basic_auth.realm', 'Basic Auth'))
+            'WWW-Authenticate' => sprintf(
+                'Basic realm="%s", charset="UTF-8"',
+                config('very_basic_auth.realm', 'Basic Auth')
+            )
         ];
 
         // View
         $view = config('very_basic_auth.error_view');
 
-        // If the request want's JSON
+        // If the request want's JSON, else view
         if ($request->wantsJson()) {
             return response()->json([
                 'message' => config('very_basic_auth.error_message')
             ], 401, $header);
-        }
-        // View is available
-        else if (isset($view)) {
+        } elseif (isset($view)) {
             return response()->view($view, [], 401)
                 ->withHeaders($header);
         }

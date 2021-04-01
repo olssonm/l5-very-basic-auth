@@ -3,7 +3,7 @@
     "description": "Stateless HTTP basic auth without the need for a database. For Laravel 5",
     "keywords": [
         "olssonm",
-        "Laravel 5",
+        "laravel",
         "authentication",
         "http basic auth"
     ],
@@ -18,7 +18,8 @@
     ],
     "require": {
         "illuminate/support": "^6.0|^7.0|^8.0",
-        "php" : "^7.2|^8.0"
+        "php" : "^7.2|^8.0",
+        "squizlabs/php_codesniffer": "^3.5"
     },
     "require-dev": {
         "phpunit/phpunit": "^7.5|^8.0|^9.0",
@@ -36,6 +37,8 @@
         }
     },
     "scripts": {
+        "phpsniff": "vendor/bin/phpcs --standard=\"PSR12\" ./src --ignore=./src/resources/*",
+        "phpfix": "vendor/bin/phpcbf --standard=\"PSR12\" ./src --ignore=./src/resources/*",
         "test": "vendor/bin/phpunit"
     },
     "extra": {
