@@ -1,9 +1,9 @@
-# Laravel 5 Very Basic Auth
+# Laravel Very Basic Auth
 
 [![Latest Version on Packagist][ico-version]][link-packagist]
 [![Total downloads][ico-downloads]][link-packagist]
 [![Software License][ico-license]](LICENSE.md)
-[![Build Status][ico-travis]][link-travis]
+[![Build Status][ico-build]][link-build]
 [![Scrutinizer Score][ico-scrutinizer]][link-scrutinizer]
 
 ![very-basic-auth](https://user-images.githubusercontent.com/907114/40575964-331559ce-60ef-11e8-8366-aba700fc5567.png)
@@ -153,9 +153,9 @@ MITライセンスです。 詳しくはこちらを見てください。[Licens
 
 [ico-version]: https://img.shields.io/packagist/v/olssonm/l5-very-basic-auth.svg?style=flat-square
 [ico-license]: https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square
-[ico-travis]: https://img.shields.io/travis/com/olssonm/l5-very-basic-auth/master.svg?style=flat-square
+[ico-build]: https://img.shields.io/github/workflow/status/olssonm/l5-very-basic-auth/Run%20tests.svg?style=flat-square&label=tests
 [ico-downloads]: https://img.shields.io/packagist/dt/olssonm/l5-very-basic-auth.svg?style=flat-square
 [ico-scrutinizer]: https://img.shields.io/scrutinizer/g/olssonm/l5-very-basic-auth.svg?style=flat-square
 [link-packagist]: https://packagist.org/packages/olssonm/l5-very-basic-auth
-[link-travis]: https://travis-ci.com/olssonm/l5-very-basic-auth
+[link-build]: https://github.com/olssonm/l5-very-basic-auth/actions?query=workflow%3A%22Run+tests%22
 [link-scrutinizer]: https://scrutinizer-ci.com/g/olssonm/l5-very-basic-auth
