@@ -23,6 +23,6 @@
         'realm'             => 'Basic Auth',
 
         // If you prefer to use a view with your error message you can uncomment "error_view".
-        // This will superseed your default response message
+        // This will supersede your default response message
         // 'error_view'        => 'very_basic_auth::default'
     ];
