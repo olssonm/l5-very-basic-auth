@@ -4,7 +4,6 @@
 [![Total downloads][ico-downloads]][link-packagist]
 [![Software License][ico-license]](LICENSE.md)
 [![Build Status][ico-build]][link-build]
-[![Scrutinizer Score][ico-scrutinizer]][link-scrutinizer]
 
 ![very-basic-auth](https://user-images.githubusercontent.com/907114/40575964-331559ce-60ef-11e8-8366-aba700fc5567.png)
 
