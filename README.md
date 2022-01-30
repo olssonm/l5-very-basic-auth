@@ -27,10 +27,10 @@ While HTTP Basic Auth does give you a protection layer against unwanted visitors
 
 ## Version Compatibility
 
-Laravel                                                | l5-very-basic-auth
-:------------------------------------------------------|:----------
-`^5.4`                                                 | `5.*`
-<code>^6 &#124;&#124; ^7 &#124;&#124; ^8</code>        | `6.*`
+Laravel                                                                | l5-very-basic-auth
+:----------------------------------------------------------------------|:----------
+`^5.4`                                                                 | `5.*`
+<code>^6 &#124;&#124; ^7 &#124;&#124; ^8 &#124;&#124; ^9</code>        | `6.*`
 
 *The odd versioning is due to breaking changes in the testing framework and PHP versions. `3.x`-releases are  for Laravel 5.4 (PHP 5.6 and up) and `4.x`-releases for Laravel 5.5.*
 
@@ -184,7 +184,5 @@ The MIT License (MIT). Please see [License File](LICENSE.md) for more informatio
 [ico-license]: https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square
 [ico-build]: https://img.shields.io/github/workflow/status/olssonm/l5-very-basic-auth/Run%20tests.svg?style=flat-square&label=tests
 [ico-downloads]: https://img.shields.io/packagist/dt/olssonm/l5-very-basic-auth.svg?style=flat-square
-[ico-scrutinizer]: https://img.shields.io/scrutinizer/g/olssonm/l5-very-basic-auth.svg?style=flat-square
 [link-packagist]: https://packagist.org/packages/olssonm/l5-very-basic-auth
 [link-build]: https://github.com/olssonm/l5-very-basic-auth/actions?query=workflow%3A%22Run+tests%22
-[link-scrutinizer]: https://scrutinizer-ci.com/g/olssonm/l5-very-basic-auth

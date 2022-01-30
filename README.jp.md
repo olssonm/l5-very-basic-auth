@@ -4,7 +4,6 @@
 [![Total downloads][ico-downloads]][link-packagist]
 [![Software License][ico-license]](LICENSE.md)
 [![Build Status][ico-build]][link-build]
-[![Scrutinizer Score][ico-scrutinizer]][link-scrutinizer]
 
 ![very-basic-auth](https://user-images.githubusercontent.com/907114/40575964-331559ce-60ef-11e8-8366-aba700fc5567.png)
 
@@ -27,10 +26,10 @@ Basic認証は望まないユーザーからのアクセスを排除すること
 
 ## 対応バージョン
 
-Laravel                                                | l5-very-basic-auth
-:------------------------------------------------------|:----------
-`^5.4`                                                 | `5.*`
-<code>^6 &#124;&#124; ^7 &#124;&#124; ^8</code>        | `6.*`
+Laravel                                                                | l5-very-basic-auth
+:----------------------------------------------------------------------|:----------
+`^5.4`                                                                 | `5.*`
+<code>^6 &#124;&#124; ^7 &#124;&#124; ^8 &#124;&#124; ^9</code>        | `6.*`
 
 #### Laravel4.xを使っている場合
 
@@ -155,7 +154,5 @@ MITライセンスです。 詳しくはこちらを見てください。[Licens
 [ico-license]: https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square
 [ico-build]: https://img.shields.io/github/workflow/status/olssonm/l5-very-basic-auth/Run%20tests.svg?style=flat-square&label=tests
 [ico-downloads]: https://img.shields.io/packagist/dt/olssonm/l5-very-basic-auth.svg?style=flat-square
-[ico-scrutinizer]: https://img.shields.io/scrutinizer/g/olssonm/l5-very-basic-auth.svg?style=flat-square
 [link-packagist]: https://packagist.org/packages/olssonm/l5-very-basic-auth
 [link-build]: https://github.com/olssonm/l5-very-basic-auth/actions?query=workflow%3A%22Run+tests%22
-[link-scrutinizer]: https://scrutinizer-ci.com/g/olssonm/l5-very-basic-auth
