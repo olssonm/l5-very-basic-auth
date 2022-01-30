@@ -1,6 +1,6 @@
 {
     "name": "olssonm/l5-very-basic-auth",
-    "description": "Stateless HTTP basic auth without the need for a database. For Laravel 5",
+    "description": "Laravel stateless HTTP basic auth without the need for a database",
     "keywords": [
         "olssonm",
         "laravel",
@@ -17,7 +17,7 @@
         }
     ],
     "require": {
-        "illuminate/support": "^6.0|^7.0|^8.0",
+        "illuminate/support": "^6.0|^7.0|^8.0|^9.0",
         "php" : "^7.2|^8.0",
         "squizlabs/php_codesniffer": "^3.5"
     },
@@ -51,5 +51,6 @@
             ]
         }
     },
-    "minimum-stability": "stable"
+    "minimum-stability": "dev",
+    "prefer-stable": true
 }
