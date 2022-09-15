@@ -4,7 +4,7 @@ namespace Olssonm\VeryBasicAuth\Tests;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
-
+use Olssonm\VeryBasicAuth\Handlers\DefaultResponseHandler;
 use Olssonm\VeryBasicAuth\Http\Middleware\VeryBasicAuth;
 
 class VeryBasicAuthTests extends \Orchestra\Testbench\TestCase
@@ -16,7 +16,7 @@ class VeryBasicAuthTests extends \Orchestra\Testbench\TestCase
 	public function setUp(): void
 	{
 		parent::setUp();
-		$this->middleware = new VeryBasicAuth;
+		$this->middleware = new VeryBasicAuth(new DefaultResponseHandler);
 	}
 
 	/**

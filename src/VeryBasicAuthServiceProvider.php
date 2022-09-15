@@ -4,6 +4,7 @@ namespace Olssonm\VeryBasicAuth;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Str;
+use Olssonm\VeryBasicAuth\Handlers\ResponseHandler;
 
 class VeryBasicAuthServiceProvider extends ServiceProvider
 {
@@ -71,6 +72,8 @@ class VeryBasicAuthServiceProvider extends ServiceProvider
             $this->config,
             'very_basic_auth'
         );
+
+        $this->app->bind(ResponseHandler::class, config('very_basic_auth.response_handler', DefaultResponseHandler::class));
     }
 
     /**
