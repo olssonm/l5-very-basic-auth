@@ -11,19 +11,14 @@ jobs:
                 include:
                     - php: 8.1
                       illuminate: ^9.0
-                      phpunit: ^9.0
                     - php: 8.1
                       illuminate: ^8.0
-                      phpunit: ^9.0
                     - php: 8.0
                       illuminate: ^8.0
-                      phpunit: ^9.0
                     - php: 8.0
                       illuminate: ^7.0
-                      phpunit: ^8.0
                     - php: 7.4
                       illuminate: ^7.0
-                      phpunit: ^8.0
 
         name: PHP ${{ matrix.php }} - Illuminate ${{ matrix.illuminate }}
 
@@ -40,7 +35,7 @@ jobs:
               run: composer self-update --2
 
             - name: Install dependencies
-              run: composer require "illuminate/support:${{ matrix.illuminate }}" "phpunit/phpunit:${{ matrix.phpunit }}" --no-interaction --no-progress --no-suggest
+              run: composer require "illuminate/support:${{ matrix.illuminate }}" --no-interaction --no-progress --no-suggest
 
             - name: Execute tests
               run: composer test
