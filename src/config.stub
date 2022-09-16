@@ -16,7 +16,7 @@
         ],
 
         // Response handler for the error responses
-        'handler' => \Olssonm\VeryBasicAuth\Handlers\DefaultResponseHandler::class,
+        'response_handler' => \Olssonm\VeryBasicAuth\Handlers\DefaultResponseHandler::class,
 
         // Message to display if the user "opts out"/clicks "cancel"
         'error_message'     => 'You have to supply your credentials to access this resource.',
