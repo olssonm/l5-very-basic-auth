@@ -2,12 +2,16 @@
 
 use Illuminate\Http\Client\Request;
 use Illuminate\Support\Facades\Route;
+use Olssonm\VeryBasicAuth\Handlers\DefaultResponseHandler;
+use Olssonm\VeryBasicAuth\Handlers\ResponseHandler;
 use Olssonm\VeryBasicAuth\Http\Middleware\VeryBasicAuth;
+use Olssonm\VeryBasicAuth\Tests\Fixtures\CustomResponseHandler;
 
 use function Pest\Laravel\get;
 
 beforeEach(function() {
     Route::get('/', fn () => 'ok')->middleware(VeryBasicAuth::class)->name('default');
+    Route::get('/test', fn () => 'ok')->middleware(VeryBasicAuth::class);
     Route::get('/inline', fn () => 'ok')->middleware(
         sprintf('auth.very_basic:%s,%s', config('very_basic_auth.user'), config('very_basic_auth.password'))
     )->name('inline');
@@ -115,4 +119,28 @@ test('request with correct inline credentials passes', function () {
 
     $this->assertEquals(200, $response->getStatusCode());
     $this->assertEquals('ok', $response->getContent());
+});
+
+test('test response handlers', function () {
+    // Custom response handler
+    app()->bind(
+        ResponseHandler::class,
+        CustomResponseHandler::class
+    );
+
+    $response = get('/test');
+
+    $this->assertEquals(401, $response->getStatusCode());
+    $this->assertEquals('Custom response', $response->getContent());
+
+    // Default response handler
+    app()->bind(
+        ResponseHandler::class,
+        DefaultResponseHandler::class
+    );
+
+    $response = get('/test');
+
+    $this->assertEquals(401, $response->getStatusCode());
+    $this->assertEquals(config('very_basic_auth.error_message'), $response->getContent());
 });

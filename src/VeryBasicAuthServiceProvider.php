@@ -76,7 +76,7 @@ class VeryBasicAuthServiceProvider extends ServiceProvider
 
         $this->app->bind(
             ResponseHandler::class,
-            config('very_basic_auth.response_handler', DefaultResponseHandler::class)
+            config('very_basic_auth.handler', DefaultResponseHandler::class)
         );
     }
 
