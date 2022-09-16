@@ -101,6 +101,25 @@ Or
 ],
 ```
 
+### Response handlers
+
+When the authentication fails the response handler sends out an error response (see "Views and messages" for more about these options). By default the handler will be `\Olssonm\VeryBasicAuth\Handlers\DefaultResponseHandler` (see `response_handler` in `very_basic_auth.php`). You may however write your own response-logic if you so choose. The only requirement is that it implements the `\Olssonm\VeryBasicAuth\Handlers\ResponseHandler`-interface, and has an `__invoke`-method that accepts a request-object, like so:
+
+``` php
+use Illuminate\Http\Request;
+use Olssonm\VeryBasicAuth\Handlers\ResponseHandler;
+
+class CustomResponseHandler implements ResponseHandler
+{
+    public function __invoke(Request $request)
+    {
+        // Do some stuff
+        return response('Custom response', 401);
+    }
+}
+```
+
+
 ### Views and messages
 
 In the `very_basic_auth.php`-configuration you have the ability to set a custom view instead of a message.
@@ -115,8 +134,6 @@ In the `very_basic_auth.php`-configuration you have the ability to set a custom 
 ```
 
 If you uncomment `error_view`, the middleware will try to find your specified view. You supply this value as usual (without the `.blade.php`-extention).
-
-*If you've upgraded to 2.1 from a previous version this key and value will be missing from your published configuration and you will have to add it yourself.*
 
 ## Usage
 
@@ -177,7 +194,7 @@ A big thank you to the people who has contributed to this package, among others:
 
 The MIT License (MIT). Please see [License File](LICENSE.md) for more information.
 
-© 2021 [Marcus Olsson](https://marcusolsson.me).
+© 2022 [Marcus Olsson](https://marcusolsson.me).
 
 [ico-version]: https://img.shields.io/packagist/v/olssonm/l5-very-basic-auth.svg?style=flat-square
 [ico-license]: https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square
