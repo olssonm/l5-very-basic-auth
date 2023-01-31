@@ -9,6 +9,8 @@ jobs:
         strategy:
             matrix:
                 include:
+                    - php: 8.2
+                      illuminate: ^10.0
                     - php: 8.1
                       illuminate: ^9.0
                     - php: 8.1
