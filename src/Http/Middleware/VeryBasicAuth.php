@@ -38,8 +38,9 @@ class VeryBasicAuth
             $authUsername = $username ?? config('very_basic_auth.user');
             $authPassword = $password ?? config('very_basic_auth.password');
 
-            // Check for credentials
-            if ($request->getUser() !== $authUsername || $request->getPassword() !== $authPassword) {
+            if (!$authUsername && !$authPassword) {
+                return $next($request);
+            } elseif ($request->getUser() !== $authUsername || $request->getPassword() !== $authPassword) {
                 return $this->deniedResponse($request);
             }
         }

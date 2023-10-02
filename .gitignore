@@ -1,6 +1,5 @@
 /vendor
 composer.lock
-src/config.php
 .DS_Store
 .phpunit.result.cache
 phpunit-output

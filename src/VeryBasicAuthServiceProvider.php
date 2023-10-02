@@ -32,12 +32,6 @@ class VeryBasicAuthServiceProvider extends ServiceProvider
     public function __construct($app)
     {
         $this->config = __DIR__ . '/config.php';
-        $this->stub = __DIR__ . '/config.stub';
-
-        // Check that config-file exists
-        if (!file_exists($this->config)) {
-            $this->createConfig();
-        }
 
         parent::__construct($app);
     }
@@ -78,17 +72,5 @@ class VeryBasicAuthServiceProvider extends ServiceProvider
             ResponseHandler::class,
             config('very_basic_auth.response_handler', DefaultResponseHandler::class)
         );
-    }
-
-    /**
-     * Crates a new config-file with a random password
-     *
-     * @return string bytes written
-     */
-    private function createConfig()
-    {
-        $data = file_get_contents($this->stub);
-        $data = str_replace('%password%', Str::random(8), $data);
-        return file_put_contents($this->config, $data);
     }
 }

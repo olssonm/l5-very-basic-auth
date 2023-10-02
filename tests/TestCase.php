@@ -22,6 +22,5 @@ abstract class TestCase extends OrchestraTestCase
     public static function tearDownAfterClass(): void
     {
         parent::tearDownAfterClass();
-        unlink(__DIR__ . '/../src/config.php');
     }
 }
