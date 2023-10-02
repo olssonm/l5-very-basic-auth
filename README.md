@@ -26,10 +26,11 @@ While HTTP Basic Auth does give you a protection layer against unwanted visitors
 
 ## Version Compatibility
 
-Laravel                                                                | l5-very-basic-auth
-:----------------------------------------------------------------------|:----------
-`^5.4`                                                                 | `5.*`
-<code>^6 &#124;&#124; ^7 &#124;&#124; ^8 &#124;&#124; ^9</code>        | `6.*`
+Laravel                                                                                 | l5-very-basic-auth
+:---------------------------------------------------------------------------------------|:----------
+`^5.4`                                                                                  | `5.*` (EOL/deprecated)
+<code>^6 &#124;&#124; ^7 &#124;&#124; ^8 &#124;&#124; ^9 &#124;&#124; ^10</code>        | `6.*` (EOL/deprecated)
+<code>^6 &#124;&#124; ^7 &#124;&#124; ^8 &#124;&#124; ^9 &#124;&#124; ^10</code>        | `7.*`
 
 *The odd versioning is due to breaking changes in the testing framework and PHP versions. `3.x`-releases are  for Laravel 5.4 (PHP 5.6 and up) and `4.x`-releases for Laravel 5.5.*
 
@@ -79,7 +80,7 @@ The file `very_basic_auth.php` will then be copied to your `app/config`-folder â
 
 #### Note
 
-**There is no default password**. Upon installation a random password is set for added security (we don't want everyone to use the same default password). Please publish the packages configuration to have the ability to set a custom password.
+**There is no default password**. Upon installation you will need to set your own username and password. Please publish the packages configuration to have the ability to set these. **If left empty, basic auth will not be active**.
 
 ### Environments
 
