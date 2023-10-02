@@ -10,6 +10,10 @@ use Olssonm\VeryBasicAuth\Tests\Fixtures\CustomResponseHandler;
 use function Pest\Laravel\get;
 
 beforeEach(function() {
+    // Set default config for testing
+    config()->set('very_basic_auth.user', 'test');
+    config()->set('very_basic_auth.password', 'test');
+
     Route::get('/', fn () => 'ok')->middleware(VeryBasicAuth::class)->name('default');
     Route::get('/test', fn () => 'ok')->middleware(VeryBasicAuth::class);
     Route::get('/inline', fn () => 'ok')->middleware(
@@ -24,6 +28,17 @@ test('basic auth filter is set', function () {
 
 test('config file is installed', function() {
     $this->assertTrue(file_exists(__DIR__ . '/../src/config.php'));
+});
+
+test('request with no credentials and no config passes', function () {
+
+    config()->set('very_basic_auth.user', '');
+    config()->set('very_basic_auth.password', '');
+
+    $response = get('/');
+
+    $this->assertEquals(200, $response->getStatusCode());
+    $this->assertEquals(null, $response->headers->get('WWW-Authenticate'));
 });
 
 test('request with no credentials fails', function() {
