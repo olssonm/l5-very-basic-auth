@@ -1,6 +1,5 @@
 <?php
 
-use Illuminate\Http\Client\Request;
 use Illuminate\Support\Facades\Route;
 use Olssonm\VeryBasicAuth\Handlers\DefaultResponseHandler;
 use Olssonm\VeryBasicAuth\Handlers\ResponseHandler;
@@ -9,7 +8,7 @@ use Olssonm\VeryBasicAuth\Tests\Fixtures\CustomResponseHandler;
 
 use function Pest\Laravel\get;
 
-beforeEach(function() {
+beforeEach(function () {
     // Set default config for testing
     config()->set('very_basic_auth.user', 'test');
     config()->set('very_basic_auth.password', 'test');
@@ -26,8 +25,8 @@ test('basic auth filter is set', function () {
     $this->assertTrue(array_key_exists('auth.very_basic', $this->app->router->getMiddleware()));
 });
 
-test('config file is installed', function() {
-    $this->assertTrue(file_exists(__DIR__ . '/../src/config.php'));
+test('config file is installed', function () {
+    $this->assertTrue(file_exists(__DIR__.'/../src/config.php'));
 });
 
 test('request with no credentials and no config passes', function () {
@@ -41,7 +40,7 @@ test('request with no credentials and no config passes', function () {
     $this->assertEquals(null, $response->headers->get('WWW-Authenticate'));
 });
 
-test('request with no credentials fails', function() {
+test('request with no credentials fails', function () {
     $response = get('/');
 
     $this->assertEquals(401, $response->getStatusCode());
@@ -52,7 +51,7 @@ test('request with no credentials fails', function() {
 test('request with incorrect credentials fails - text/html', function () {
     $response = $this->withHeaders([
         'PHP_AUTH_USER' => str_random(20),
-		'PHP_AUTH_PW' => str_random(20)
+        'PHP_AUTH_PW' => str_random(20),
     ])->get('/');
 
     $this->assertEquals(401, $response->getStatusCode());
@@ -65,7 +64,7 @@ test('request with incorrect credentials fails - json', function () {
     $response = $this->withHeaders([
         'PHP_AUTH_USER' => str_random(20),
         'PHP_AUTH_PW' => str_random(20),
-        'Accept' => 'application/json'
+        'Accept' => 'application/json',
     ])->get('/');
 
     $content = json_decode($response->getContent());
@@ -83,7 +82,7 @@ test('request with incorrect credentials fails - view', function () {
 
     $response = $this->withHeaders([
         'PHP_AUTH_USER' => str_random(20),
-        'PHP_AUTH_PW' => str_random(20)
+        'PHP_AUTH_PW' => str_random(20),
     ])->get('/');
 
     $this->assertEquals(401, $response->getStatusCode());
@@ -95,7 +94,7 @@ test('request with incorrect credentials fails - view', function () {
 test('request with correct credentials passes', function () {
     $response = $this->withHeaders([
         'PHP_AUTH_USER' => config('very_basic_auth.user'),
-        'PHP_AUTH_PW' => config('very_basic_auth.password')
+        'PHP_AUTH_PW' => config('very_basic_auth.password'),
     ])->get('/');
 
     $this->assertEquals(200, $response->getStatusCode());
@@ -119,7 +118,7 @@ test('environments', function () {
 test('request with incorrect inline credentials fails', function () {
     $response = $this->withHeaders([
         'PHP_AUTH_USER' => str_random(20),
-        'PHP_AUTH_PW' => str_random(20)
+        'PHP_AUTH_PW' => str_random(20),
     ])->get('/inline');
 
     $this->assertEquals(401, $response->getStatusCode());
@@ -129,7 +128,7 @@ test('request with incorrect inline credentials fails', function () {
 test('request with correct inline credentials passes', function () {
     $response = $this->withHeaders([
         'PHP_AUTH_USER' => config('very_basic_auth.user'),
-        'PHP_AUTH_PW' => config('very_basic_auth.password')
+        'PHP_AUTH_PW' => config('very_basic_auth.password'),
     ])->get('/inline');
 
     $this->assertEquals(200, $response->getStatusCode());

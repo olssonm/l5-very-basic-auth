@@ -3,7 +3,6 @@
 namespace Olssonm\VeryBasicAuth;
 
 use Illuminate\Support\ServiceProvider;
-use Illuminate\Support\Str;
 use Olssonm\VeryBasicAuth\Handlers\DefaultResponseHandler;
 use Olssonm\VeryBasicAuth\Handlers\ResponseHandler;
 

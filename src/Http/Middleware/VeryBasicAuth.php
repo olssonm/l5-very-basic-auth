@@ -2,11 +2,10 @@
 
 namespace Olssonm\VeryBasicAuth\Http\Middleware;
 
-use Illuminate\Http\Request;
-use Symfony\Component\HttpFoundation\Response;
 use Closure;
-use Olssonm\VeryBasicAuth\Handlers\DefaultResponseHandler;
+use Illuminate\Http\Request;
 use Olssonm\VeryBasicAuth\Handlers\ResponseHandler;
+use Symfony\Component\HttpFoundation\Response;
 
 class VeryBasicAuth
 {
@@ -20,11 +19,8 @@ class VeryBasicAuth
     /**
      * Handle an incoming request
      *
-     * @param  Request  $request
-     * @param  Closure  $next
-     * @param  mixed    $username
-     * @param  mixed    $password
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @param  mixed  $username
+     * @param  mixed  $password
      */
     public function handle(Request $request, Closure $next, $username = null, $password = null): Response
     {
@@ -38,7 +34,7 @@ class VeryBasicAuth
             $authUsername = $username ?? config('very_basic_auth.user');
             $authPassword = $password ?? config('very_basic_auth.password');
 
-            if (!$authUsername && !$authPassword) {
+            if (! $authUsername && ! $authPassword) {
                 return $next($request);
             } elseif ($request->getUser() !== $authUsername || $request->getPassword() !== $authPassword) {
                 return $this->deniedResponse($request);
@@ -51,7 +47,6 @@ class VeryBasicAuth
     /**
      * Return a error response
      *
-     * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     private function deniedResponse(Request $request): Response
