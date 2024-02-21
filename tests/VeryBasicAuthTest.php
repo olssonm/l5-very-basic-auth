@@ -1,24 +1,11 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
 use Olssonm\VeryBasicAuth\Handlers\DefaultResponseHandler;
 use Olssonm\VeryBasicAuth\Handlers\ResponseHandler;
 use Olssonm\VeryBasicAuth\Http\Middleware\VeryBasicAuth;
 use Olssonm\VeryBasicAuth\Tests\Fixtures\CustomResponseHandler;
 
 use function Pest\Laravel\get;
-
-beforeEach(function () {
-    // Set default config for testing
-    config()->set('very_basic_auth.user', 'test');
-    config()->set('very_basic_auth.password', 'test');
-
-    Route::get('/', fn () => 'ok')->middleware(VeryBasicAuth::class)->name('default');
-    Route::get('/test', fn () => 'ok')->middleware(VeryBasicAuth::class);
-    Route::get('/inline', fn () => 'ok')->middleware(
-        sprintf('auth.very_basic:%s,%s', config('very_basic_auth.user'), config('very_basic_auth.password'))
-    )->name('inline');
-});
 
 test('basic auth filter is set', function () {
     expect(in_array(VeryBasicAuth::class, $this->app->router->getMiddleware()))->toBeTrue();
@@ -30,7 +17,6 @@ test('config file is installed', function () {
 });
 
 test('request with no credentials and no config passes', function () {
-
     config()->set('very_basic_auth.user', '');
     config()->set('very_basic_auth.password', '');
 
@@ -43,7 +29,8 @@ test('request with no credentials and no config passes', function () {
 test('request with no credentials fails', function () {
     $response = get('/');
 
-    $this->assertEquals(401, $response->getStatusCode());
+    expect($response->getStatusCode())->toEqual(401);
+    
     $this->assertEquals(sprintf('Basic realm="%s", charset="UTF-8"', config('very_basic_auth.realm')), $response->headers->get('WWW-Authenticate'));
     $this->assertEquals(config('very_basic_auth.error_message'), $response->getContent());
 });
