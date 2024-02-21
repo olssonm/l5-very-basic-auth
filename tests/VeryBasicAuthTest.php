@@ -30,9 +30,8 @@ test('request with no credentials fails', function () {
     $response = get('/');
 
     expect($response->getStatusCode())->toEqual(401);
-    
-    $this->assertEquals(sprintf('Basic realm="%s", charset="UTF-8"', config('very_basic_auth.realm')), $response->headers->get('WWW-Authenticate'));
-    $this->assertEquals(config('very_basic_auth.error_message'), $response->getContent());
+    expect($response->headers->get('WWW-Authenticate'))->toEqual(sprintf('Basic realm="%s", charset="UTF-8"', config('very_basic_auth.realm')));
+    epexct($response->getContent())->toEqual(config('very_basic_auth.error_message'));
 });
 
 test('request with incorrect credentials fails - text/html', function () {
@@ -41,10 +40,10 @@ test('request with incorrect credentials fails - text/html', function () {
         'PHP_AUTH_PW' => str_random(20),
     ])->get('/');
 
-    $this->assertEquals(401, $response->getStatusCode());
-    $this->assertEquals('text/html; charset=UTF-8', $response->headers->get('content-type'));
-    $this->assertEquals(sprintf('Basic realm="%s", charset="UTF-8"', config('very_basic_auth.realm')), $response->headers->get('WWW-Authenticate'));
-    $this->assertEquals(config('very_basic_auth.error_message'), $response->getContent());
+    expect($response->getStatusCode())->toEqual(401);
+    expect($response->headers->get('content-type'))->toEqual('text/html; charset=UTF-8');
+    expect($response->headers->get('WWW-Authenticate'))->toEqual(sprintf('Basic realm="%s", charset="UTF-8"', config('very_basic_auth.realm')));
+    expect($response->getContent())->toEqual(config('very_basic_auth.error_message'));
 });
 
 test('request with incorrect credentials fails - json', function () {
@@ -56,11 +55,11 @@ test('request with incorrect credentials fails - json', function () {
 
     $content = json_decode($response->getContent());
 
-    $this->assertEquals(401, $response->getStatusCode());
-    $this->assertEquals('application/json', $response->headers->get('content-type'));
-    $this->assertEquals(json_last_error(), JSON_ERROR_NONE);
-    $this->assertEquals(config('very_basic_auth.error_message'), $content->message);
-    $this->assertEquals(sprintf('Basic realm="%s", charset="UTF-8"', config('very_basic_auth.realm')), $response->headers->get('WWW-Authenticate'));
+    expect($response->getStatusCode())->toEqual(401);
+    expect($response->headers->get('content-type'))->toEqual('application/json');
+    expect(json_last_error())->toEqual(JSON_ERROR_NONE);
+    expect($content->message)->toEqual(config('very_basic_auth.error_message'));
+    expect($response->headers->get('WWW-Authenticate'))->toEqual(sprintf('Basic realm="%s", charset="UTF-8"', config('very_basic_auth.realm')));
 });
 
 test('request with incorrect credentials fails - view', function () {
@@ -72,9 +71,10 @@ test('request with incorrect credentials fails - view', function () {
         'PHP_AUTH_PW' => str_random(20),
     ])->get('/');
 
-    $this->assertEquals(401, $response->getStatusCode());
-    $this->assertEquals('text/html; charset=UTF-8', $response->headers->get('content-type'));
-    $this->assertEquals(sprintf('Basic realm="%s", charset="UTF-8"', config('very_basic_auth.realm')), $response->headers->get('WWW-Authenticate'));
+    expect($response->getStatusCode())->toEqual(401);
+    expect($response->headers->get('content-type'))->toEqual('text/html; charset=UTF-8');
+    expect($response->headers->get('WWW-Authenticate'))->toEqual(sprintf('Basic realm="%s", charset="UTF-8"', config('very_basic_auth.realm')));
+
     $this->assertStringContainsStringIgnoringCase('This is the default view for the olssonm/l5-very-basic-auth-package', $response->getContent());
 });
 
