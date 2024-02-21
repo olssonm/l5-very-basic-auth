@@ -21,12 +21,12 @@ beforeEach(function () {
 });
 
 test('basic auth filter is set', function () {
-    $this->assertTrue(in_array(VeryBasicAuth::class, $this->app->router->getMiddleware()));
-    $this->assertTrue(array_key_exists('auth.very_basic', $this->app->router->getMiddleware()));
+    expect(in_array(VeryBasicAuth::class, $this->app->router->getMiddleware()))->toBeTrue();
+    expect(array_key_exists('auth.very_basic', $this->app->router->getMiddleware()));
 });
 
 test('config file is installed', function () {
-    $this->assertTrue(file_exists(__DIR__.'/../src/config.php'));
+    expect(file_exists(__DIR__.'/../src/config.php'))->toBeTrue();
 });
 
 test('request with no credentials and no config passes', function () {
@@ -36,8 +36,8 @@ test('request with no credentials and no config passes', function () {
 
     $response = get('/');
 
-    $this->assertEquals(200, $response->getStatusCode());
-    $this->assertEquals(null, $response->headers->get('WWW-Authenticate'));
+    expect($response->getStatusCode())->toEqual(200);
+    expect($response->headers->get('WWW-Authenticate'))->toEqual(null);
 });
 
 test('request with no credentials fails', function () {
