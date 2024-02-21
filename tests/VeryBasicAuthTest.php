@@ -31,7 +31,7 @@ test('request with no credentials fails', function () {
 
     expect($response->getStatusCode())->toEqual(401);
     expect($response->headers->get('WWW-Authenticate'))->toEqual(sprintf('Basic realm="%s", charset="UTF-8"', config('very_basic_auth.realm')));
-    epexct($response->getContent())->toEqual(config('very_basic_auth.error_message'));
+    expect($response->getContent())->toEqual(config('very_basic_auth.error_message'));
 });
 
 test('request with incorrect credentials fails - text/html', function () {
