@@ -59,7 +59,6 @@
     "scripts": {
         "phpfix": "vendor/bin/phpcbf --standard=\"PSR12\" ./src --ignore=./src/resources/*",
         "phpsniff": "vendor/bin/phpcs --standard=\"PSR12\" ./src --ignore=./src/resources/*",
-        "test": "vendor/bin/pest",
-        "lint": "vendor/bin/pint"
+        "test": "vendor/bin/pest"
     }
 }
