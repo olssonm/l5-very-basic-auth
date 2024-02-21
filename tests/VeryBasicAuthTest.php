@@ -6,6 +6,7 @@ use Olssonm\VeryBasicAuth\Http\Middleware\VeryBasicAuth;
 use Olssonm\VeryBasicAuth\Tests\Fixtures\CustomResponseHandler;
 
 use function Pest\Laravel\get;
+use function Pest\Laravel\withHeader;
 
 test('basic auth filter is set', function () {
     expect(in_array(VeryBasicAuth::class, $this->app->router->getMiddleware()))->toBeTrue();
@@ -35,7 +36,7 @@ test('request with no credentials fails', function () {
 });
 
 test('request with incorrect credentials fails - text/html', function () {
-    $response = $this->withHeaders([
+    $response = withHeaders([
         'PHP_AUTH_USER' => str_random(20),
         'PHP_AUTH_PW' => str_random(20),
     ])->get('/');
@@ -47,7 +48,7 @@ test('request with incorrect credentials fails - text/html', function () {
 });
 
 test('request with incorrect credentials fails - json', function () {
-    $response = $this->withHeaders([
+    $response = withHeaders([
         'PHP_AUTH_USER' => str_random(20),
         'PHP_AUTH_PW' => str_random(20),
         'Accept' => 'application/json',
@@ -63,10 +64,9 @@ test('request with incorrect credentials fails - json', function () {
 });
 
 test('request with incorrect credentials fails - view', function () {
-
     config()->set('very_basic_auth.error_view', 'very_basic_auth::default');
 
-    $response = $this->withHeaders([
+    $response = withHeaders([
         'PHP_AUTH_USER' => str_random(20),
         'PHP_AUTH_PW' => str_random(20),
     ])->get('/');
@@ -79,47 +79,47 @@ test('request with incorrect credentials fails - view', function () {
 });
 
 test('request with correct credentials passes', function () {
-    $response = $this->withHeaders([
+    $response = withHeaders([
         'PHP_AUTH_USER' => config('very_basic_auth.user'),
         'PHP_AUTH_PW' => config('very_basic_auth.password'),
     ])->get('/');
 
-    $this->assertEquals(200, $response->getStatusCode());
-    $this->assertEquals('ok', $response->getContent());
+    expect($response->getStatusCode())->toEqual(200);
+    expect($response->getContent())->toEqual('ok');
 });
 
 test('environments', function () {
     config()->set('very_basic_auth.envs', ['production']);
-    $this->get('/')->assertStatus(200);
+    get('/')->assertStatus(200);
 
     config()->set('very_basic_auth.envs', ['local']);
-    $this->get('/')->assertStatus(200);
+    get('/')->assertStatus(200);
 
     config()->set('very_basic_auth.envs', ['*']);
-    $this->get('/')->assertStatus(401);
+    get('/')->assertStatus(401);
 
     config()->set('very_basic_auth.envs', ['testing']);
-    $this->get('/')->assertStatus(401);
+    get('/')->assertStatus(401);
 });
 
 test('request with incorrect inline credentials fails', function () {
-    $response = $this->withHeaders([
+    $response = withHeaders([
         'PHP_AUTH_USER' => str_random(20),
         'PHP_AUTH_PW' => str_random(20),
     ])->get('/inline');
 
-    $this->assertEquals(401, $response->getStatusCode());
-    $this->assertEquals(config('very_basic_auth.error_message'), $response->getContent());
+    expect($response->getStatusCode())->toEqual(401);
+    expect($response->getContent())->toEqual(config('very_basic_auth.error_message'));
 });
 
 test('request with correct inline credentials passes', function () {
-    $response = $this->withHeaders([
+    $response = withHeaders([
         'PHP_AUTH_USER' => config('very_basic_auth.user'),
         'PHP_AUTH_PW' => config('very_basic_auth.password'),
     ])->get('/inline');
 
-    $this->assertEquals(200, $response->getStatusCode());
-    $this->assertEquals('ok', $response->getContent());
+    expect($response->getStatusCode())->toEqual(200);
+    expect($response->getContent())->toEqual('ok');
 });
 
 test('test response handlers', function () {
@@ -131,8 +131,8 @@ test('test response handlers', function () {
 
     $response = get('/test');
 
-    $this->assertEquals(401, $response->getStatusCode());
-    $this->assertEquals('Custom response', $response->getContent());
+    expect($response->getStatusCode())->toEqual(401);
+    expect($response->getContent())->toEqual('Custom reponse');
 
     // Default response handler
     app()->bind(
@@ -142,6 +142,6 @@ test('test response handlers', function () {
 
     $response = get('/test');
 
-    $this->assertEquals(401, $response->getStatusCode());
-    $this->assertEquals(config('very_basic_auth.error_message'), $response->getContent());
+    expect($response->getStatusCode())->toEqual(401);
+    expect($response->getContent())->toEqual(config('very_basic_auth.error_message'));
 });
