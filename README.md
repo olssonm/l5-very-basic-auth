@@ -24,20 +24,6 @@ On failed authentication the user will get a "401 Unauthorized" response.
 
 While HTTP Basic Auth does give you a protection layer against unwanted visitors, it is still not strictly safe from brute-force attacks. If you are solely using this package for security, you should at least consider looking into Apache or Nginx rate-limiters to limit login attempts.
 
-## Version Compatibility
-
-Laravel                                                                                 | l5-very-basic-auth
-:---------------------------------------------------------------------------------------|:----------
-`^5.4`                                                                                  | `5.*` (EOL/deprecated)
-<code>^6 &#124;&#124; ^7 &#124;&#124; ^8 &#124;&#124; ^9 &#124;&#124; ^10</code>        | `6.*` (EOL/deprecated)
-<code>^6 &#124;&#124; ^7 &#124;&#124; ^8 &#124;&#124; ^9 &#124;&#124; ^10</code>        | `7.*`
-
-*The odd versioning is due to breaking changes in the testing framework and PHP versions. `3.x`-releases are  for Laravel 5.4 (PHP 5.6 and up) and `4.x`-releases for Laravel 5.5.*
-
-#### Using Laravel 4.x?
-
-[Take a look at this gist](https://gist.github.com/olssonm/ea5561d7ab20fb5c8ddbdac9b556b32b), it uses the old `Route::filter`-methods to achieve pretty much the same goal.
-
 ## Installation
 
 Via Composer
@@ -195,7 +181,7 @@ A big thank you to the people who has contributed to this package, among others:
 
 The MIT License (MIT). Please see [License File](LICENSE.md) for more information.
 
-© 2022 [Marcus Olsson](https://marcusolsson.me).
+© 2024 [Marcus Olsson](https://marcusolsson.me).
 
 [ico-version]: https://img.shields.io/packagist/v/olssonm/l5-very-basic-auth.svg?style=flat-square
 [ico-license]: https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square
