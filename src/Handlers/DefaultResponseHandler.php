@@ -13,7 +13,7 @@ class DefaultResponseHandler implements ResponseHandler
             'WWW-Authenticate' => sprintf(
                 'Basic realm="%s", charset="UTF-8"',
                 config('very_basic_auth.realm', 'Basic Auth')
-            )
+            ),
         ];
 
         // View
@@ -22,7 +22,7 @@ class DefaultResponseHandler implements ResponseHandler
         // If the request want's JSON, else view
         if ($request->wantsJson()) {
             return response()->json([
-                'message' => config('very_basic_auth.error_message')
+                'message' => config('very_basic_auth.error_message'),
             ], 401, $header);
         } elseif (isset($view)) {
             return response()->view($view, [], 401)
