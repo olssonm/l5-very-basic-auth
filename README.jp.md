@@ -24,13 +24,6 @@ Laravel 5 Very Basic AuthはLaravel標準の`auth.basic`とは違い、実際の
 
 Basic認証は望まないユーザーからのアクセスを排除することができますが、ブルートフォース攻撃に対しては厳密には安全ではありません。もしこのパッケージをセキュリティのために単独で利用するのであれば、ログインの試行回数を制限するために、少なくともApacheかNginxのrate-limitersを確認するべきです。
 
-## 対応バージョン
-
-Laravel                                                                | l5-very-basic-auth
-:----------------------------------------------------------------------|:----------
-`^5.4`                                                                 | `5.*`
-<code>^6 &#124;&#124; ^7 &#124;&#124; ^8 &#124;&#124; ^9</code>        | `6.*`
-
 #### Laravel4.xを使っている場合
 
 [こちらのgistを見てください](https://gist.github.com/olssonm/ea5561d7ab20fb5c8ddbdac9b556b32b), 古い`Route::filter`を使って、ほぼ同様の機能を利用できます。
@@ -148,7 +141,7 @@ $ phpunit
 
 MITライセンスです。 詳しくはこちらを見てください。[License File](LICENSE.md)
 
-© 2022 [Marcus Olsson](https://marcusolsson.me).
+© 2024 [Marcus Olsson](https://marcusolsson.me).
 
 [ico-version]: https://img.shields.io/packagist/v/olssonm/l5-very-basic-auth.svg?style=flat-square
 [ico-license]: https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square
