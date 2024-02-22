@@ -24,10 +24,6 @@ On failed authentication the user will get a "401 Unauthorized" response.
 
 While HTTP Basic Auth does give you a protection layer against unwanted visitors, it is still not strictly safe from brute-force attacks. If you are solely using this package for security, you should at least consider looking into Apache or Nginx rate-limiters to limit login attempts.
 
-#### Using Laravel 4.x?
-
-[Take a look at this gist](https://gist.github.com/olssonm/ea5561d7ab20fb5c8ddbdac9b556b32b), it uses the old `Route::filter`-methods to achieve pretty much the same goal.
-
 ## Installation
 
 Via Composer

@@ -24,10 +24,6 @@ Laravel 5 Very Basic AuthはLaravel標準の`auth.basic`とは違い、実際の
 
 Basic認証は望まないユーザーからのアクセスを排除することができますが、ブルートフォース攻撃に対しては厳密には安全ではありません。もしこのパッケージをセキュリティのために単独で利用するのであれば、ログインの試行回数を制限するために、少なくともApacheかNginxのrate-limitersを確認するべきです。
 
-#### Laravel4.xを使っている場合
-
-[こちらのgistを見てください](https://gist.github.com/olssonm/ea5561d7ab20fb5c8ddbdac9b556b32b), 古い`Route::filter`を使って、ほぼ同様の機能を利用できます。
-
 ## インストール
 
 Composer経由
