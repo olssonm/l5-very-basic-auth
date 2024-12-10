@@ -2,11 +2,13 @@
 
 namespace Olssonm\VeryBasicAuth\Handlers;
 
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 
 class DefaultResponseHandler implements ResponseHandler
 {
-    public function __invoke(Request $request)
+    public function __invoke(Request $request): Response|JsonResponse
     {
         // Build header
         $header = [
@@ -30,6 +32,6 @@ class DefaultResponseHandler implements ResponseHandler
         }
 
         // Return default message
-        return response(config('very_basic_auth.error_message'), 401, $header);
+        return response()->make(config('very_basic_auth.error_message'), 401, $header);
     }
 }
