@@ -3,13 +3,14 @@
 namespace Olssonm\VeryBasicAuth\Http\Middleware;
 
 use Closure;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Olssonm\VeryBasicAuth\Handlers\ResponseHandler;
 use Symfony\Component\HttpFoundation\Response;
 
 class VeryBasicAuth
 {
-    protected $responseHandler;
+    protected ResponseHandler $responseHandler;
 
     public function __construct(ResponseHandler $responseHandler)
     {
@@ -47,9 +48,9 @@ class VeryBasicAuth
     /**
      * Return a error response
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\Response|\Illuminate\Http\JsonResponse
      */
-    private function deniedResponse(Request $request): Response
+    private function deniedResponse(Request $request): Response|JsonResponse
     {
         return ($this->responseHandler)($request);
     }
