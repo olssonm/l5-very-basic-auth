@@ -18,16 +18,16 @@
     "homepage": "https://github.com/olssonm/l5-very-basic-auth",
     "require": {
         "php": "^8.0 || ^8.1 || ^8.2",
-        "illuminate/support": "^9.0 || ^10.0 || ^11.0",
+        "illuminate/support": "^9.0 || ^10.0 || ^11.0 || ^12.0",
         "squizlabs/php_codesniffer": "^3.5"
     },
     "require-dev": {
         "laravel/helpers": "^1.1",
-        "orchestra/testbench": "^7.0 || ^8.0 || ^9.0",
-        "pestphp/pest": "^1.0 || ^2.0",
-        "pestphp/pest-plugin-laravel": "^1.2 || ^2.0",
+        "orchestra/testbench": "^7.0 || ^8.0 || ^9.0 || ^10.0",
+        "pestphp/pest": "^1.0 || ^2.0 || ^3.7",
+        "pestphp/pest-plugin-laravel": "^1.2 || ^2.0 || ^3.1",
         "phpstan/phpstan": "^2.0",
-        "phpunit/phpunit": "^9.0 || ^10.5"
+        "phpunit/phpunit": "^9.0 || ^10.5 || ^11.5.3"
     },
     "minimum-stability": "dev",
     "prefer-stable": true,
