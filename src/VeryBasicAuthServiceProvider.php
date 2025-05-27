@@ -3,7 +3,6 @@
 namespace Olssonm\VeryBasicAuth;
 
 use Illuminate\Support\ServiceProvider;
-use Olssonm\VeryBasicAuth\Console\PasswordGenerateCommand;
 use Olssonm\VeryBasicAuth\Handlers\DefaultResponseHandler;
 use Olssonm\VeryBasicAuth\Handlers\ResponseHandler;
 
@@ -26,7 +25,7 @@ class VeryBasicAuthServiceProvider extends ServiceProvider
     /**
      * Constructor
      *
-     * @param \Illuminate\Contracts\Foundation\Application $app
+     * @param  \Illuminate\Contracts\Foundation\Application  $app
      * @return void
      */
     public function __construct($app)
@@ -53,13 +52,6 @@ class VeryBasicAuthServiceProvider extends ServiceProvider
 
         // Register middleware
         $router->aliasMiddleware('auth.very_basic', \Olssonm\VeryBasicAuth\Http\Middleware\VeryBasicAuth::class);
-
-        // Register commands
-        if ($this->app->runningInConsole()) {
-            $this->commands([
-                PasswordGenerateCommand::class,
-            ]);
-        }
     }
 
     /**

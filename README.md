@@ -155,17 +155,6 @@ Route::get('/', [
 
 *Note:* inline credentials always take president over the `very_basic_auth.php`-configuration file.
 
-### Generating hash for password
-
-If you want to generate a hash for your password, you can use the `artisan`-command:
-
-``` bash
-php artisan very-basic-auth:generate-password
-```
-
-It will ask you for a password, and then automatically insert the hash into your `.env`-file
-
-
 ## Testing
 
 ``` bash
