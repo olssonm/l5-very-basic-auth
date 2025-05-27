@@ -9,8 +9,6 @@ use Illuminate\Support\Facades\Hash;
 use Olssonm\VeryBasicAuth\Handlers\ResponseHandler;
 use Symfony\Component\HttpFoundation\Response;
 
-use function xdebug_break;
-
 class VeryBasicAuth
 {
     protected ResponseHandler $responseHandler;
