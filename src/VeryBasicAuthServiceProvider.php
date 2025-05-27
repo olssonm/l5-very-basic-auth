@@ -54,6 +54,7 @@ class VeryBasicAuthServiceProvider extends ServiceProvider
         // Register middleware
         $router->aliasMiddleware('auth.very_basic', \Olssonm\VeryBasicAuth\Http\Middleware\VeryBasicAuth::class);
 
+        // Register commands
         if ($this->app->runningInConsole()) {
             $this->commands([
                 PasswordGenerateCommand::class,
