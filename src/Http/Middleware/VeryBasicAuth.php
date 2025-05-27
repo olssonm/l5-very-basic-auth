@@ -42,7 +42,7 @@ class VeryBasicAuth
 
             $plainPassword = $request->getPassword();
 
-            $isCorrectPassword = (strlen($authPassword) < 60) && ($plainPassword === $authPassword);
+            $isCorrectPassword = $plainPassword === $authPassword;
 
             if (! $isCorrectPassword) {
                 $isCorrectPassword = strlen($authPassword) === 60
