@@ -45,9 +45,7 @@ class VeryBasicAuth
             $isCorrectPassword = $plainPassword === $authPassword;
 
             if (! $isCorrectPassword) {
-                $isCorrectPassword = strlen($authPassword) === 60
-                    && preg_match('/^\$2[aby]\$/', $authPassword)
-                    && Hash::check($plainPassword, $authPassword);
+                $isCorrectPassword = preg_match('/^\$2[aby]\$/', $authPassword) && Hash::check($plainPassword, $authPassword);
             }
 
             if ($request->getUser() !== $authUsername || !$isCorrectPassword) {
