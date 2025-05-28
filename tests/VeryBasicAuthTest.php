@@ -55,6 +55,19 @@ test('request with incorrect credentials fails - text/html', function () {
     expect($response->getContent())->toEqual(config('very_basic_auth.error_message'));
 });
 
+test('request with incorrect credentials fails - hashed password', function () {
+
+    config()->set('very_basic_auth.user', 'test');
+    config()->set('very_basic_auth.password', app()->make('hash')->make('test'));
+
+    $response = withHeaders([
+        'PHP_AUTH_USER' => str_random(20),
+        'PHP_AUTH_PW' => str_random(20),
+    ])->get('/');
+
+    expect($response->getStatusCode())->toEqual(401);
+});
+
 test('request with incorrect credentials fails - json', function () {
     $response = withHeaders([
         'PHP_AUTH_USER' => str_random(20),
@@ -90,6 +103,19 @@ test('request with correct credentials passes', function () {
     $response = withHeaders([
         'PHP_AUTH_USER' => config('very_basic_auth.user'),
         'PHP_AUTH_PW' => config('very_basic_auth.password'),
+    ])->get('/');
+
+    expect($response->getStatusCode())->toEqual(200);
+    expect($response->getContent())->toEqual('ok');
+});
+
+test('request with correct credentials passes - hashed password', function () {
+    config()->set('very_basic_auth.user', 'test');
+    config()->set('very_basic_auth.password', app()->make('hash')->make('test'));
+
+    $response = withHeaders([
+        'PHP_AUTH_USER' => 'test',
+        'PHP_AUTH_PW' => 'test',
     ])->get('/');
 
     expect($response->getStatusCode())->toEqual(200);
