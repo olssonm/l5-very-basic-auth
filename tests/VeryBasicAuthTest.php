@@ -17,6 +17,14 @@ test('config file is installed', function () {
     expect(file_exists(__DIR__.'/../src/config.php'))->toBeTrue();
 });
 
+test('install package', function () {
+    $this->artisan('vendor:publish', [
+        '--provider' => 'Olssonm\VeryBasicAuth\VeryBasicAuthServiceProvider',
+    ])->assertExitCode(0);
+
+    expect(file_exists(config_path('very_basic_auth.php')))->toBeTrue();
+});
+
 test('request with no credentials and no config passes', function () {
     config()->set('very_basic_auth.user', '');
     config()->set('very_basic_auth.password', '');
@@ -170,4 +178,31 @@ test('test response handlers', function () {
 
     expect($response->getStatusCode())->toEqual(401);
     expect($response->getContent())->toEqual(config('very_basic_auth.error_message'));
+});
+
+// Test for the console command PasswordGenerateCommand
+test('console command sets password in .env file', function () {
+    $envPath = base_path('.env');
+
+    // Clean up any existing .env before the test
+    if (file_exists($envPath)) {
+        unlink($envPath);
+    }
+
+    // Create a fresh .env
+    file_put_contents($envPath, "APP_NAME=Laravel\nBASIC_AUTH_PASSWORD=test");
+
+    $password = 'newpassword123';
+
+    // Simulate user input for the console command
+    $this->artisan('very-basic-auth:password-generate')
+        ->expectsQuestion('Please enter a password for the very basic auth', $password)
+        ->expectsQuestion('Please confirm your password', $password)
+        ->assertExitCode(0);
+
+    // Load and parse the .env file to get the new hash via Laravels env helper
+    $hashedPassword = env('BASIC_AUTH_PASSWORD');
+
+    expect($hashedPassword)->not->toBeNull();
+    expect(app()->make('hash')->check($password, $hashedPassword))->toBeTrue();
 });
