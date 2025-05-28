@@ -17,6 +17,14 @@ test('config file is installed', function () {
     expect(file_exists(__DIR__.'/../src/config.php'))->toBeTrue();
 });
 
+test('install package', function () {
+    $this->artisan('vendor:publish', [
+        '--provider' => 'Olssonm\VeryBasicAuth\VeryBasicAuthServiceProvider',
+    ])->assertExitCode(0);
+
+    expect(file_exists(config_path('very_basic_auth.php')))->toBeTrue();
+});
+
 test('request with no credentials and no config passes', function () {
     config()->set('very_basic_auth.user', '');
     config()->set('very_basic_auth.password', '');
@@ -45,6 +53,19 @@ test('request with incorrect credentials fails - text/html', function () {
     expect($response->headers->get('content-type'))->toEqual('text/html; charset=UTF-8');
     expect($response->headers->get('WWW-Authenticate'))->toEqual(sprintf('Basic realm="%s", charset="UTF-8"', config('very_basic_auth.realm')));
     expect($response->getContent())->toEqual(config('very_basic_auth.error_message'));
+});
+
+test('request with incorrect credentials fails - hashed password', function () {
+
+    config()->set('very_basic_auth.user', 'test');
+    config()->set('very_basic_auth.password', app()->make('hash')->make('test'));
+
+    $response = withHeaders([
+        'PHP_AUTH_USER' => str_random(20),
+        'PHP_AUTH_PW' => str_random(20),
+    ])->get('/');
+
+    expect($response->getStatusCode())->toEqual(401);
 });
 
 test('request with incorrect credentials fails - json', function () {
@@ -82,6 +103,19 @@ test('request with correct credentials passes', function () {
     $response = withHeaders([
         'PHP_AUTH_USER' => config('very_basic_auth.user'),
         'PHP_AUTH_PW' => config('very_basic_auth.password'),
+    ])->get('/');
+
+    expect($response->getStatusCode())->toEqual(200);
+    expect($response->getContent())->toEqual('ok');
+});
+
+test('request with correct credentials passes - hashed password', function () {
+    config()->set('very_basic_auth.user', 'test');
+    config()->set('very_basic_auth.password', app()->make('hash')->make('test'));
+
+    $response = withHeaders([
+        'PHP_AUTH_USER' => 'test',
+        'PHP_AUTH_PW' => 'test',
     ])->get('/');
 
     expect($response->getStatusCode())->toEqual(200);
@@ -144,4 +178,32 @@ test('test response handlers', function () {
 
     expect($response->getStatusCode())->toEqual(401);
     expect($response->getContent())->toEqual(config('very_basic_auth.error_message'));
+});
+
+// Test for the console command PasswordGenerateCommand
+test('console command sets password in .env file', function () {
+    $envPath = base_path('.env');
+
+    // Clean up any existing .env before the test
+    if (file_exists($envPath)) {
+        unlink($envPath);
+    }
+
+    // Create a fresh .env
+    file_put_contents($envPath, "APP_NAME=Laravel\nBASIC_AUTH_PASSWORD=test");
+
+    $password = 'password' . uniqid();
+
+    // Simulate user input for the console command
+    $this->artisan('very-basic-auth:password-generate')
+        ->expectsQuestion('Please enter a password for the very basic auth', $password)
+        ->expectsQuestion('Please confirm your password', $password)
+        ->assertExitCode(0);
+
+    // Reload env-variables to make sure the newest value is available
+    $this->artisan('config:cache');
+    $hashedPassword = config('very_basic_auth.password');
+
+    expect($hashedPassword)->not->toBeNull();
+    expect(app()->make('hash')->check($password, $hashedPassword))->toBeTrue();
 });
