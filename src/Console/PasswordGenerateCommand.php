@@ -5,8 +5,6 @@ namespace Olssonm\VeryBasicAuth\Console;
 use Illuminate\Console\Command;
 use Symfony\Component\Console\Attribute\AsCommand;
 
-use function Laravel\Prompts\password;
-
 #[AsCommand('very-basic-auth:password-generate')]
 class PasswordGenerateCommand extends Command
 {
@@ -33,28 +31,23 @@ class PasswordGenerateCommand extends Command
     {
         $approved = false;
 
-        while (!$approved) {
-            $password = password(
-                label: 'Please enter a password for the very basic auth',
-                required: true,
-                validate: fn(string $value) => match (true) {
-                    strlen($value) < 8 => 'The password must be at least 8 characters.',
-                    default => null
-                },
-                hint: 'The password must be at least 8 characters long.'
-            );
+        do {
+            $password = $this->secret('Please enter a password for the very basic auth');
 
-            $confirmation = password(
-                label: 'Please confirm your password',
-                required: true
-            );
-
-            if ($password === $confirmation) {
-                $approved = true;
-            } else {
-                $this->error('The passwords do not match. Please try again.');
+            if (empty($password) || strlen($password) < 8) {
+                $this->error('The password must be at least 8 characters.');
+                continue;
             }
-        }
+
+            $confirmation = $this->secret('Please confirm your password');
+
+            if ($password !== $confirmation) {
+                $this->error('The passwords do not match. Please try again.');
+                $approved = false;
+            } else {
+                $approved = true;
+            }
+        } while (!$approved);
 
         if ($this->writeNewEnvironmentFileWith(app()->make('hash')->make($password))) {
             $this->info('The password has been set successfully.');
