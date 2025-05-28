@@ -192,7 +192,7 @@ test('console command sets password in .env file', function () {
     // Create a fresh .env
     file_put_contents($envPath, "APP_NAME=Laravel\nBASIC_AUTH_PASSWORD=test");
 
-    $password = 'newpassword123';
+    $password = 'password' . uniqid();
 
     // Simulate user input for the console command
     $this->artisan('very-basic-auth:password-generate')
@@ -200,8 +200,9 @@ test('console command sets password in .env file', function () {
         ->expectsQuestion('Please confirm your password', $password)
         ->assertExitCode(0);
 
-    // Load and parse the .env file to get the new hash via Laravels env helper
-    $hashedPassword = env('BASIC_AUTH_PASSWORD');
+    // Reload env-variables to make sure the newest value is available
+    $this->artisan('config:cache');
+    $hashedPassword = config('very_basic_auth.password');
 
     expect($hashedPassword)->not->toBeNull();
     expect(app()->make('hash')->check($password, $hashedPassword))->toBeTrue();
