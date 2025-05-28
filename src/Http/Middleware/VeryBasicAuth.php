@@ -45,7 +45,12 @@ class VeryBasicAuth
             $isCorrectPassword = $plainPassword === $authPassword;
 
             if (! $isCorrectPassword) {
-                $isCorrectPassword = Hash::check($plainPassword, $authPassword);
+                try {
+                    $isCorrectPassword = Hash::check($plainPassword, $authPassword);
+                } catch (\Throwable $e) {
+                    // If the password is not hashed, we will just return false
+                    $isCorrectPassword = false;
+                }
             }
 
             if ($request->getUser() !== $authUsername || !$isCorrectPassword) {
