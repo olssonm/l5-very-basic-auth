@@ -3,14 +3,9 @@
 namespace Olssonm\VeryBasicAuth\Console;
 
 use Illuminate\Console\Command;
-use Illuminate\Validation\Rules\Password;
 use Symfony\Component\Console\Attribute\AsCommand;
 
-use function file_get_contents;
-use function file_put_contents;
 use function Laravel\Prompts\password;
-use function preg_quote;
-use function preg_replace;
 
 #[AsCommand('very-basic-auth:password-generate')]
 class PasswordGenerateCommand extends Command
@@ -36,14 +31,32 @@ class PasswordGenerateCommand extends Command
      */
     public function handle(): int
     {
-        $password = password(
-            label: 'Please enter a password for the very basic auth',
-            required: true,
-            validate: ['required', 'confirmed', Password::min(8)],
-            hint: 'The password must be at least 8 characters long.'
-        );
+        $approved = false;
 
-        if ($this->writeNewEnvironmentFileWith($this->laravel->make('hash')->make($password))) {
+        while (!$approved) {
+            $password = password(
+                label: 'Please enter a password for the very basic auth',
+                required: true,
+                validate: fn(string $value) => match (true) {
+                    strlen($value) < 8 => 'The password must be at least 8 characters.',
+                    default => null
+                },
+                hint: 'The password must be at least 8 characters long.'
+            );
+
+            $confirmation = password(
+                label: 'Please confirm your password',
+                required: true
+            );
+
+            if ($password === $confirmation) {
+                $approved = true;
+            } else {
+                $this->error('The passwords do not match. Please try again.');
+            }
+        }
+
+        if ($this->writeNewEnvironmentFileWith(app()->make('hash')->make($password))) {
             $this->info('The password has been set successfully.');
         }
 
@@ -58,19 +71,21 @@ class PasswordGenerateCommand extends Command
      */
     protected function writeNewEnvironmentFileWith(string $password): bool
     {
-        $replaced = preg_replace(
+        $envPath = $this->laravel->environmentFilePath();
+        $input = file_get_contents($envPath);
+
+        $replaced = preg_replace_callback(
             $this->passwordReplacementPattern(),
-            'BASIC_AUTH_PASSWORD=' . $password,
-            $input = file_get_contents($this->laravel->environmentFilePath())
+            fn($matches) => 'BASIC_AUTH_PASSWORD="' . $password . '"',
+            $input
         );
 
         if ($replaced === $input || $replaced === null) {
-            $this->error('Unable to set password. No BASIC_AUTH_PASSWORD variable was found in the .env file.');
-
+            $this->error('Unable to set password. No BASIC_AUTH_PASSWORD variable was found in the .env file. Please add it first');
             return false;
         }
 
-        file_put_contents($this->laravel->environmentFilePath(), $replaced);
+        file_put_contents($envPath, $replaced);
 
         return true;
     }
@@ -82,8 +97,6 @@ class PasswordGenerateCommand extends Command
      */
     protected function passwordReplacementPattern(): string
     {
-        $escaped = preg_quote('=' . $this->laravel['config']['very_basic_auth.password'], '/');
-
-        return "/^BASIC_AUTH_PASSWORD{$escaped}/m";
+        return '/^BASIC_AUTH_PASSWORD=.*$/m';
     }
 }
