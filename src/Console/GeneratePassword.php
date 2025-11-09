@@ -5,15 +5,15 @@ namespace Olssonm\VeryBasicAuth\Console;
 use Illuminate\Console\Command;
 use Symfony\Component\Console\Attribute\AsCommand;
 
-#[AsCommand('very-basic-auth:password-generate')]
-class PasswordGenerateCommand extends Command
+#[AsCommand('very-basic-auth:generate-password')]
+class GeneratePassword extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'very-basic-auth:password-generate';
+    protected $signature = 'very-basic-auth:generate-password';
 
     /**
      * The console command description.
@@ -29,31 +29,59 @@ class PasswordGenerateCommand extends Command
      */
     public function handle(): int
     {
-        $approved = false;
+        $password = $this->promptForValidPassword();
 
-        do {
-            $password = $this->secret('Please enter a password for the very basic auth');
-
-            if (empty($password) || strlen($password) < 8) {
-                $this->error('The password must be at least 8 characters.');
-                continue;
-            }
-
-            $confirmation = $this->secret('Please confirm your password');
-
-            if ($password !== $confirmation) {
-                $this->error('The passwords do not match. Please try again.');
-                $approved = false;
-            } else {
-                $approved = true;
-            }
-        } while (!$approved);
-
-        if ($this->writeNewEnvironmentFileWith(app()->make('hash')->make($password))) {
+        if ($this->writeNewEnvironmentFileWith($this->hashPassword($password))) {
             $this->info('The password has been set successfully.');
         }
 
         return static::SUCCESS;
+    }
+
+    /**
+     * Keep asking for a password until a valid one is provided.
+     */
+    protected function promptForValidPassword(): string
+    {
+        while (true) {
+            $password = (string) $this->secret('Please enter a password for the very basic auth');
+
+            if (!$this->isPasswordAccepted($password)) {
+                $this->error('The password must be at least 8 characters.');
+                continue;
+            }
+
+            if (!$this->passwordsMatch($password)) {
+                $this->error('The passwords do not match. Please try again.');
+                continue;
+            }
+
+            return $password;
+        }
+    }
+
+    /**
+     * Determine if the provided password fulfills minimum requirements.
+     */
+    protected function isPasswordAccepted(?string $password): bool
+    {
+        return !empty($password) && strlen($password) >= 8;
+    }
+
+    /**
+     * Ask for confirmation and ensure it matches.
+     */
+    protected function passwordsMatch(string $password): bool
+    {
+        return $password === (string) $this->secret('Please confirm your password');
+    }
+
+    /**
+     * Hash the password using Laravel's configured hasher.
+     */
+    protected function hashPassword(string $password): string
+    {
+        return app()->make('hash')->make($password);
     }
 
     /**
