@@ -3,7 +3,7 @@
 namespace Olssonm\VeryBasicAuth;
 
 use Illuminate\Support\ServiceProvider;
-use Olssonm\VeryBasicAuth\Console\PasswordGenerateCommand;
+use Olssonm\VeryBasicAuth\Console\GeneratePassword;
 use Olssonm\VeryBasicAuth\Handlers\DefaultResponseHandler;
 use Olssonm\VeryBasicAuth\Handlers\ResponseHandler;
 
@@ -57,7 +57,7 @@ class VeryBasicAuthServiceProvider extends ServiceProvider
         // Register commands
         if ($this->app->runningInConsole()) {
             $this->commands([
-                PasswordGenerateCommand::class,
+                GeneratePassword::class,
             ]);
         }
     }

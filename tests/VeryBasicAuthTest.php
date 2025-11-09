@@ -195,7 +195,7 @@ test('console command sets password in .env file', function () {
     $password = 'password' . uniqid();
 
     // Simulate user input for the console command
-    $this->artisan('very-basic-auth:password-generate')
+    $this->artisan('very-basic-auth:generate-password')
         ->expectsQuestion('Please enter a password for the very basic auth', $password)
         ->expectsQuestion('Please confirm your password', $password)
         ->assertExitCode(0);
