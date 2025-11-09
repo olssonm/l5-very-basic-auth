@@ -206,4 +206,5 @@ test('console command sets password in .env file', function () {
 
     expect($hashedPassword)->not->toBeNull();
     expect(app()->make('hash')->check($password, $hashedPassword))->toBeTrue();
+    expect(config('app.name'))->toEqual('Laravel');
 });
