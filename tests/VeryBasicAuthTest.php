@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Str;
 use Olssonm\VeryBasicAuth\Handlers\DefaultResponseHandler;
 use Olssonm\VeryBasicAuth\Handlers\ResponseHandler;
 use Olssonm\VeryBasicAuth\Http\Middleware\VeryBasicAuth;
@@ -50,7 +51,7 @@ test('request with incorrect credentials fails - text/html', function () {
     ])->get('/');
 
     expect($response->getStatusCode())->toEqual(401);
-    expect($response->headers->get('content-type'))->toEqual('text/html; charset=UTF-8');
+    expect(requestHeader($response))->toEqual('text/html; charset=utf-8');
     expect($response->headers->get('WWW-Authenticate'))->toEqual(sprintf('Basic realm="%s", charset="UTF-8"', config('very_basic_auth.realm')));
     expect($response->getContent())->toEqual(config('very_basic_auth.error_message'));
 });
@@ -93,7 +94,7 @@ test('request with incorrect credentials fails - view', function () {
     ])->get('/');
 
     expect($response->getStatusCode())->toEqual(401);
-    expect($response->headers->get('content-type'))->toEqual('text/html; charset=UTF-8');
+    expect(requestHeader($response))->toEqual('text/html; charset=utf-8');
     expect($response->headers->get('WWW-Authenticate'))->toEqual(sprintf('Basic realm="%s", charset="UTF-8"', config('very_basic_auth.realm')));
 
     $this->assertStringContainsStringIgnoringCase('This is the default view for the olssonm/l5-very-basic-auth-package', $response->getContent());
@@ -208,3 +209,8 @@ test('console command sets password in .env file', function () {
     expect(app()->make('hash')->check($password, $hashedPassword))->toBeTrue();
     expect(config('app.name'))->toEqual('Laravel');
 });
+
+function requestHeader($response): string
+{
+    return Str::lower($response->headers->get('content-type'));
+}
