@@ -22,7 +22,7 @@ return [
     // Message to display if the user "opts out"/clicks "cancel"
     'error_message' => 'You have to supply your credentials to access this resource.',
 
-    // Message to display in the auth dialiog in some browsers (mainly Internet Explorer).
+    // Message to display in the auth dialog in some browsers (mainly Internet Explorer).
     // Realm is also used to define a "space" that should share credentials.
     'realm' => 'Basic Auth',
 
